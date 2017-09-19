@@ -281,6 +281,20 @@ Light:
   m_Lightmapping: 4
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
+  m_FalloffTable:
+    m_Table[0]: 0
+    m_Table[1]: 0
+    m_Table[2]: 0
+    m_Table[3]: 0
+    m_Table[4]: 0
+    m_Table[5]: 0
+    m_Table[6]: 0
+    m_Table[7]: 0
+    m_Table[8]: 0
+    m_Table[9]: 0
+    m_Table[10]: 0
+    m_Table[11]: 0
+    m_Table[12]: 0
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
@@ -556,6 +570,33 @@ Prefab:
     - {fileID: 114805332678184806, guid: 6986005db68c82646a79d67b09240baf, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 6986005db68c82646a79d67b09240baf, type: 2}
   m_IsPrefabParent: 0
+<<<<<<< HEAD
+=======
+--- !u!1 &1043122466 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1782191760417486, guid: 6986005db68c82646a79d67b09240baf,
+    type: 2}
+  m_PrefabInternal: {fileID: 953972629}
+--- !u!114 &1043122467
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1043122466}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa8debed8fc235c4ebed653beb0361c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObjectList:
+  - m_Prefab: {fileID: 1175783474253350, guid: 9fbd6bde833c88346a5860a5a89ba628, type: 2}
+    m_Amount: 100
+  - m_Prefab: {fileID: 1923885145611682, guid: 6076b9219a01c44449ad794cd3332681, type: 2}
+    m_Amount: 100
+  m_RemappingRequest: 0
+  m_Tags:
+  - Spawner
+>>>>>>> afffbd2ac7a1abcc4e79da02cf4a48a50705be2e
 --- !u!1 &1179000902
 GameObject:
   m_ObjectHideFlags: 0
