@@ -15,15 +15,18 @@ public class WaveSpawnerMultipeSpawnPoints : WaveSpawner, IWaveSpawner {
             if (Random.Range(0, 100) < M_Spawners[i].m_Obj.m_SpawnProcentage && M_Spawners[i].M_Status)
             {
                 int SpawnPointIndex = Random.Range(0, m_SpawnPosition.Length);
-                SpawnItem spawnItem = new SpawnItem()
-                {
-                    m_prefab = M_Spawners[i].m_Obj.m_Prefab,
-                    m_Pool = M_Spawners[i].m_Pool,
-                    m_SpawnPosition = m_SpawnPosition[SpawnPointIndex]
-                };
-                if (spawnItem.m_SpawnPosition == null)
+                if (m_SpawnPosition.Length == 0)
                     Debug.LogError("No Spawnpoints for Spawner found", transform);
-                M_Wave.Add(spawnItem);
+                else
+                {
+                    SpawnItem spawnItem = new SpawnItem()
+                    {
+                        m_prefab = M_Spawners[i].m_Obj.m_Prefab,
+                        m_Pool = M_Spawners[i].m_Pool,
+                        m_SpawnPosition = m_SpawnPosition[SpawnPointIndex]
+                    };
+                    M_Wave.Add(spawnItem);
+                }
             }
         }
     }

@@ -14,8 +14,10 @@ public class ObjectPool : MonoBehaviour {
 
     public void Inspector()
     {
-        ObjectList = new Poolobj[0];
-        m_Tags = new string[0];
+        if(ObjectList == null)
+            ObjectList = new Poolobj[0];
+        if (m_Tags == null)
+            m_Tags = new string[0];
     }
 
     private void Awake()
@@ -89,7 +91,11 @@ public class ObjectPool : MonoBehaviour {
 
         if (Poollist != null)
             if (Poollist.Count < 1)
+            {
+                Debug.LogWarning("Not enough " + prefab.name + " in objectpool, " + 2 + " new " + prefab.name + " has been instantiated.");
                 LoadExtraItems(2, prefab);
+            }
+
 
         return RemoveFromPool(GetPool(prefab.name));
     }
@@ -99,7 +105,11 @@ public class ObjectPool : MonoBehaviour {
 
         if (Poollist != null)
             if (Poollist.Count < 1)
+            {
+                Debug.LogWarning("Not enough " + prefab.name + " in objectpool, " + 2 + " new " + prefab.name + " has been instantiated.");
                 LoadExtraItems(2, prefab);
+            }
+
 
         PoolObject obj = RemoveFromPool(GetPool(prefab.name));
         if (obj != null)
@@ -112,7 +122,11 @@ public class ObjectPool : MonoBehaviour {
 
         if(Poollist != null)
             if (Poollist.Count < 1)
+            {
+                Debug.LogWarning("Not enough " + prefab.name + " in objectpool, " + 2 + " new " + prefab.name + " has been instantiated.");
                 LoadExtraItems(2, prefab);
+            }
+
 
         PoolObject obj = RemoveFromPool(GetPool(prefab.name));
         if (obj != null)
@@ -126,7 +140,11 @@ public class ObjectPool : MonoBehaviour {
     public PoolObject Spawn(List<PoolObject> objectpool, GameObject Prefab)
     {
         if (objectpool.Count < 1)
+        {
+            Debug.LogWarning("Not enough " + Prefab.name + " in objectpool, " + 2 + " new " + Prefab.name + " has been instantiated.");
             LoadExtraItems(2, Prefab);
+        }
+
         PoolObject obj = RemoveFromPool(objectpool);
         return obj;
     }
@@ -147,16 +165,24 @@ public class ObjectPool : MonoBehaviour {
     public PoolObject Spawn(List<PoolObject> objectpool, GameObject prefab , Vector3 SpawnPosition)
     {
         if (objectpool.Count < 1)
+        {
+            Debug.LogWarning("Not enough " + prefab.name + " in objectpool, " + 2 + " new " + prefab.name + " has been instantiated.");
             LoadExtraItems(2, prefab);
+        }
+
         PoolObject obj = RemoveFromPool(objectpool);
         if (obj != null)
             obj.transform.position = SpawnPosition;
         return obj;
     }
-    public PoolObject Spawn(List<PoolObject> objectpool, GameObject Prefab, Transform Parrent)
+    public PoolObject Spawn(List<PoolObject> objectpool, GameObject prefab, Transform Parrent)
     {
         if (objectpool.Count < 1)
-            LoadExtraItems(2, Prefab);
+        {
+            Debug.LogWarning("Not enough " + prefab.name + " in objectpool, " + 2 + " new " + prefab.name + " has been instantiated.");
+            LoadExtraItems(2, prefab);
+        }
+
         PoolObject obj = RemoveFromPool(objectpool);
         if (obj != null)
             obj.transform.parent = Parrent;

@@ -51,14 +51,8 @@ public class Spawner : MonoBehaviour, ISpawner {
     {
         if (pool != null)
         {
-            if (ObjectPool.Pool.Spawn(pool, Spawnpoint.position) == null)
-            {
-                ObjectPool.Pool.LoadExtraItems(2, prefab);
-
-                Debug.LogWarning("Not enough " + prefab.name + " in objectpool, " + 2 + " new " + prefab.name + " has been instantiated.");
-                Initialize();
+            if (ObjectPool.Pool.Spawn(pool,prefab, Spawnpoint.position) == null)
                 return false;
-            }
         }
         else
         {
