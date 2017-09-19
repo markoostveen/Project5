@@ -11,6 +11,12 @@ public class ObjectPool : MonoBehaviour {
     public Poolobj[] ObjectList;
 
     #region Startup
+
+    private void OnEnable()
+    {
+        ObjectList = new Poolobj[0];
+    }
+
     private void Awake()
     {
         //making pool static instance
