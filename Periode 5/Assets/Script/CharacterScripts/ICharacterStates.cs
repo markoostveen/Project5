@@ -8,9 +8,5 @@ public interface ICharacterStates
 
     void UpdateState();
 
-    void ToWalking();
-
-    void ToFishing();
-
-    void ToCarrying();
+    void OnTriggerStay(Collider collider);
 }

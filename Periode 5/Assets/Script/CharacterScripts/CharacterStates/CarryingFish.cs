@@ -33,4 +33,9 @@ public class CarryingFish : ICharacterStates
     {
 
     }
+
+    public void OnTriggerStay(Collider other)
+    {
+
+    }
 }
