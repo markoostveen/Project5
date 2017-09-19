@@ -21,6 +21,8 @@ public class WaveSpawnerMultipeSpawnPoints : WaveSpawner, IWaveSpawner {
                     m_Pool = M_Spawners[i].m_Pool,
                     m_SpawnPosition = m_SpawnPosition[SpawnPointIndex]
                 };
+                if (spawnItem.m_SpawnPosition == null)
+                    Debug.LogError("No Spawnpoints for Spawner found", transform);
                 M_Wave.Add(spawnItem);
             }
         }

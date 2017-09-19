@@ -142,9 +142,7 @@ MonoBehaviour:
     m_SpawnPoint: {fileID: 0}
     M_Status: 1
   M_Spawnlocation:
-  - {fileID: 472611590}
-  - {fileID: 1283666621}
-  - {fileID: 504000826}
+  - {fileID: 0}
   m_MaxTimer: 10
 --- !u!1 &92097084
 GameObject:
@@ -558,25 +556,6 @@ Prefab:
     - {fileID: 114805332678184806, guid: 6986005db68c82646a79d67b09240baf, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 6986005db68c82646a79d67b09240baf, type: 2}
   m_IsPrefabParent: 0
---- !u!1 &1043122466 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1782191760417486, guid: 6986005db68c82646a79d67b09240baf,
-    type: 2}
-  m_PrefabInternal: {fileID: 953972629}
---- !u!114 &1043122467
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1043122466}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa8debed8fc235c4ebed653beb0361c4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObjectList: []
-  m_RemappingRequest: 0
-  m_Tags: []
 --- !u!1 &1179000902
 GameObject:
   m_ObjectHideFlags: 0

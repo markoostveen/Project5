@@ -12,9 +12,10 @@ public class ObjectPool : MonoBehaviour {
 
     #region Startup
 
-    private void OnEnable()
+    public void Inspector()
     {
         ObjectList = new Poolobj[0];
+        m_Tags = new string[0];
     }
 
     private void Awake()
@@ -181,14 +182,18 @@ public class ObjectPool : MonoBehaviour {
         }
 
         return null;
-
-
     }
 
     private void SpawnInPool(Transform Parrent, GameObject prefab, List<PoolObject> pool)
     {
         GameObject NewObj = Instantiate(prefab,Parrent);
-        pool.Add(NewObj.GetComponent<PoolObject>());
+        PoolObject obj = NewObj.GetComponent<PoolObject>();
+        if(obj == null)
+        {
+            NewObj.AddComponent<PoolObject>();
+            obj = NewObj.GetComponent<PoolObject>();
+        }
+        pool.Add(obj);
         PoolObjectInfo info = new PoolObjectInfo
         {
             Pool = GetPool(prefab.name),
@@ -289,7 +294,8 @@ public class ObjectPool : MonoBehaviour {
 
 
 [System.Serializable]
-public sealed class Poolobj : PoolObjBase{
+public sealed class Poolobj : PoolObjBase
+{
         public int m_Amount = 1;
 }
 

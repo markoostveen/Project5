@@ -16,6 +16,7 @@ public class Poolinpector : Editor
     protected void OnEnable()
     {
         m_target = (ObjectPool)target;
+        m_target.Inspector();
         m_ObjList = new List<Poolobj>();
         for (int i = 0; i < m_target.ObjectList.Length; i++)
             m_ObjList.Add(m_target.ObjectList[i]);

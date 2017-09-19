@@ -51,7 +51,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fef7026160b2f894288f4fc0444017ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  M_SpawnerType: 0
+  M_SpawnerType: 4
   M_SpawnerList: []
   M_Spawnlocation: []
   m_MaxTimer: 10
