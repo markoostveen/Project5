@@ -3,18 +3,29 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Base_AI : PoolAbleObj {
+[RequireComponent(typeof(NavMeshAgent))]
+public class Base_AI : PoolObject {
 
     protected NavMeshAgent m_Agent;
 
-	protected virtual void Start () {
+    private float UpdateTimer;
+
+    protected virtual void Awake()
+    {
         m_Agent = GetComponent<NavMeshAgent>();
-        m_Agent.destination = CreateWanderTarget(50,transform.position);
-	}
+        UpdateTimer = Random.Range(0, 100) / 100;
+    }
 
-    protected virtual void Update() { }
+    protected virtual void FixedUpdate()
+    {
+        UpdateTimer += Time.deltaTime;
+        if (UpdateTimer >= 60)
+            AiUpdater();
+    }
 
-    public Vector3 CreateWanderTarget(int Radius, Vector3 Pivot)
+    protected virtual void AiUpdater() { }
+
+    protected Vector3 CreateWanderTarget(float Radius, Vector3 Pivot)
     {
         Vector3 newtarget = new Vector3(999,999,999);
         NavMeshPath newpath = new NavMeshPath();
@@ -28,16 +39,6 @@ public class Base_AI : PoolAbleObj {
         }
 
         return newtarget;
-    }
-
-    protected void Wandering_update()
-    {
-        if (m_Agent.isOnNavMesh)
-        {
-            if (m_Agent.remainingDistance < m_Agent.stoppingDistance)
-                m_Agent.destination = CreateWanderTarget(50,transform.position);
-        }
-
     }
 
 }

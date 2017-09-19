@@ -9,10 +9,23 @@ public class ChacracterControl : MonoBehaviour
     private CarryingFish m_CarryingFishState;
     private ICharacterStates m_CurrentState;
 
+    private KeyCode[] m_KeyCodes;
+
     [SerializeField]
     private float m_HorMoveSpeed;
     [SerializeField]
     private float m_VerMoveSpeed;
+
+    public ChacracterControl(KeyCode upKey, KeyCode downKey, KeyCode leftKey, KeyCode rightKey, KeyCode toFishingKey)
+    {
+        m_KeyCodes = new KeyCode[4];
+
+        m_KeyCodes[0] = upKey;
+        m_KeyCodes[1] = downKey;
+        m_KeyCodes[2] = leftKey;
+        m_KeyCodes[3] = rightKey;
+        m_KeyCodes[4] = toFishingKey;
+    }
 
 	void Start ()
     {
@@ -41,4 +54,32 @@ public class ChacracterControl : MonoBehaviour
     {
         m_CurrentState.UpdateState();
 	}
+
+    public void DropFish()
+    {
+        
+    }
+
+    public void SwitchToWalkingState()
+    {
+        m_CurrentState = m_WalkingState;
+        m_WalkingState.InitializeState();
+    }
+
+    public void SwitchToFishingState()
+    {
+        m_CurrentState = m_FishingState;
+        m_FishingState.InitializeState();
+    }
+
+    public void SwitchToCarryingState()
+    {
+        m_CurrentState = m_CarryingFishState;
+        m_CarryingFishState.InitializeState();
+    }
+
+    public void OnTriggerStay(Collider other)
+    {
+        
+    }
 }
