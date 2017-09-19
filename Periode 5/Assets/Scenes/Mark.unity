@@ -283,6 +283,20 @@ Light:
   m_Lightmapping: 4
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
+  m_FalloffTable:
+    m_Table[0]: 0
+    m_Table[1]: 0
+    m_Table[2]: 0
+    m_Table[3]: 0
+    m_Table[4]: 0
+    m_Table[5]: 0
+    m_Table[6]: 0
+    m_Table[7]: 0
+    m_Table[8]: 0
+    m_Table[9]: 0
+    m_Table[10]: 0
+    m_Table[11]: 0
+    m_Table[12]: 0
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
@@ -574,9 +588,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa8debed8fc235c4ebed653beb0361c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ObjectList: []
+  ObjectList:
+  - m_Prefab: {fileID: 1175783474253350, guid: 9fbd6bde833c88346a5860a5a89ba628, type: 2}
+    m_Amount: 100
+  - m_Prefab: {fileID: 1923885145611682, guid: 6076b9219a01c44449ad794cd3332681, type: 2}
+    m_Amount: 100
   m_RemappingRequest: 0
-  m_Tags: []
+  m_Tags:
+  - Spawner
 --- !u!1 &1179000902
 GameObject:
   m_ObjectHideFlags: 0
