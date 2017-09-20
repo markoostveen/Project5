@@ -45,6 +45,7 @@ public class Poolinpector : Editor
         serializedObject.ApplyModifiedProperties();
     }
 
+    private int selectedtag = 0;
     private void TagForSpawners()
     {
         GUILayout.Label("Tags associated with Spawners");
@@ -60,8 +61,12 @@ public class Poolinpector : Editor
             EditorGUILayout.EndHorizontal();
         }
 
+        GUILayout.Space(5);
+        GUILayout.Label("Add new tag");
+        string[] tags = UnityEditorInternal.InternalEditorUtility.tags;
+        selectedtag = EditorGUILayout.Popup(selectedtag, tags);
         if (GUILayout.Button("Add Tag"))
-            m_TagList.Add("");
+            m_TagList.Add(tags[selectedtag]);
         m_target.m_Tags = m_TagList.ToArray();
     }
 

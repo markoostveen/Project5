@@ -43,14 +43,14 @@ public class SpawnerSelector : MonoBehaviour {
                 m_Spawner = gameObject.AddComponent<ProcentageSpawner>();
                 m_Spawner.M_Spawners = M_SpawnerList;
                 ProcentageSpawner p_spawner = (ProcentageSpawner)m_Spawner;
-                p_spawner.m_SpawnPosition = M_Spawnlocation.ToArray();
+                p_spawner.M_SpawnPosition = M_Spawnlocation.ToArray();
                 break;
 
             case SpawnerType.Procentage_multible_spawnpoints:
                 m_Spawner = gameObject.AddComponent<ProcentageSpawnerMultipeSpawnPoints>();
                 m_Spawner.M_Spawners = M_SpawnerList;
                 ProcentageSpawnerMultipeSpawnPoints pm_spawner = (ProcentageSpawnerMultipeSpawnPoints)m_Spawner;
-                pm_spawner.m_SpawnPosition = M_Spawnlocation.ToArray();
+                pm_spawner.M_SpawnPosition = M_Spawnlocation.ToArray();
                 break;
 
             case SpawnerType.Wave:
@@ -58,7 +58,7 @@ public class SpawnerSelector : MonoBehaviour {
                 m_Spawner.M_Spawners = M_SpawnerList;
                 WaveSpawner w_spawner = (WaveSpawner)m_Spawner;
                 w_spawner.M_MaxTimer = m_MaxTimer;
-                w_spawner.m_SpawnPosition = M_Spawnlocation.ToArray();
+                w_spawner.M_SpawnPosition = M_Spawnlocation.ToArray();
                 break;
 
             case SpawnerType.Wave_multible_spawnpoints:
@@ -66,11 +66,25 @@ public class SpawnerSelector : MonoBehaviour {
                 m_Spawner.M_Spawners = M_SpawnerList;
                 WaveSpawnerMultipeSpawnPoints wm_spawner = (WaveSpawnerMultipeSpawnPoints)m_Spawner;
                 wm_spawner.M_MaxTimer = m_MaxTimer;
-                wm_spawner.m_SpawnPosition = M_Spawnlocation.ToArray();
+                wm_spawner.M_SpawnPosition = M_Spawnlocation.ToArray();
                 break;
         }
-        ObjectPool.Pool.RemapPoolData();
+        
+        m_Spawner.Initialize();
 
     }
 
+    public void Update()
+    {
+        Transform[] positions = M_Spawnlocation.ToArray();
+
+        if(m_Spawner != null)
+        {
+            if(m_Spawner.M_SpawnPosition != positions)
+            {
+                m_Spawner.M_SpawnPosition = positions;
+                m_Spawner.Initialize();
+            }
+        }
+    }
 }

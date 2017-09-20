@@ -16,7 +16,7 @@ public class ObjectPool : MonoBehaviour {
     {
         if(ObjectList == null)
             ObjectList = new Poolobj[0];
-        if (m_Tags == null)
+        if (m_Tags   == null)
             m_Tags = new string[0];
     }
 
@@ -28,18 +28,26 @@ public class ObjectPool : MonoBehaviour {
         else
             Destroy(gameObject);
 
+        if (m_Tags.Length == 0)
+            Debug.LogWarning("No tags are associated with spawners, add them, its strongly suggested. if you do not, it will cost some performace on startup",transform);
+
         //loading default assets in pool
         m_Pools = new List<KeyValuePair<List<PoolObject>, string>>();
         for (int i = 0; i < ObjectList.Length; i++)
         {
-            m_Pools.Add(new KeyValuePair<List<PoolObject>, string>(new List<PoolObject>(), ObjectList[i].m_Prefab.name));
-            GameObject Parrent = new GameObject(ObjectList[i].m_Prefab.name);
-            Parrent.transform.parent = transform;
-            List<PoolObject> pool = GetPool(ObjectList[i].m_Prefab.name);
-            for (int j = 0; j < ObjectList[i].m_Amount; j++)
+            if (ObjectList[i].m_Prefab != null)
             {
-                SpawnInPool(Parrent.transform, ObjectList[i].m_Prefab, pool);
+                m_Pools.Add(new KeyValuePair<List<PoolObject>, string>(new List<PoolObject>(), ObjectList[i].m_Prefab.name));
+                GameObject Parrent = new GameObject(ObjectList[i].m_Prefab.name);
+                Parrent.transform.parent = transform;
+                List<PoolObject> pool = GetPool(ObjectList[i].m_Prefab.name);
+                for (int j = 0; j < ObjectList[i].m_Amount; j++)
+                {
+                    SpawnInPool(Parrent.transform, ObjectList[i].m_Prefab, pool);
+                }
             }
+            else
+                Debug.LogError("No object attached a default object", transform);
         }
 
         m_RemappingRequest = true;
