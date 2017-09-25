@@ -5,11 +5,12 @@ using UnityEngine;
 [RequireComponent(typeof(Collider))]
 public class Pickup : MonoBehaviour {
 
-    private Collider m_Collider;
+    [SerializeField]
+    ScriptableObject m_obj;
 
     private void Start()
     {
-        m_Collider = GetComponent<Collider>();
+        GetComponent<Collider>().isTrigger = true;
     }
 
     private void OnTriggerEnter(Collider other)

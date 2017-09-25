@@ -11,6 +11,7 @@ public class PlayerScore
     public PlayerScore(CharacterControl observer)
     {
         observer.M_Catched += Catch;
+        observer.M_AddPowerup += AddPowerup;
     }
 
     public void Catch(IFish fish)
