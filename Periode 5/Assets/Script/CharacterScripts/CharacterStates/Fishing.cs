@@ -58,9 +58,16 @@ public class Fishing : ICharacterStates
             }
         }
 
-        if (Input.GetKey(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.Q))
         {
-            ToWalking();
+            if (m_CaughtFish.Count >= 1)
+            {
+                ToCarrying();
+            }
+            else
+            {
+                ToWalking();
+            }      
         }
     }
 
@@ -103,7 +110,9 @@ public class Fishing : ICharacterStates
         m_FishInArea.RemoveAt(m_SelectedFishIndex);
         m_SelectedFishIndex = 0;
 
-        m_CharacterControl.M_Catched.Invoke(m_CaughtFish[m_CaughtFish.Count - 1]);
+
+        m_CaughtFish[m_CaughtFish.Count - 1].Catched();
+        
     }
 
     public void ToWalking()

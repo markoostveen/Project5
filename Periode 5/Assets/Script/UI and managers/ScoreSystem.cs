@@ -11,7 +11,10 @@ public class PlayerScore
     {
         observer.M_Catched = new System.Action<IFish>(Catch);
         observer.M_AddPowerup = new System.Action<PowerUp>(AddPowerup);
-        m_Struct = new PlayerCurrentScore();
+        m_Struct = new PlayerCurrentScore()
+        {
+            CurrentPowerups = new List<PowerUp>()
+        };
     }
 
     private void Catch(IFish fish)

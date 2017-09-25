@@ -3,7 +3,19 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
+<<<<<<< HEAD
   tags: []
+=======
+<<<<<<< HEAD
+  tags:
+  - Avoid
+  - PowerUp
+  - Spawner
+  - Scorepoint
+=======
+  tags: []
+>>>>>>> Mark
+>>>>>>> 55e06ccbfdccc01cf3e247859b2788ffbdf7d1ce
   layers:
   - Default
   - TransparentFX
@@ -13,7 +25,15 @@ TagManager:
   - UI
   - 
   - 
+<<<<<<< HEAD
   - 
+=======
+<<<<<<< HEAD
+  - Fish
+=======
+  - 
+>>>>>>> Mark
+>>>>>>> 55e06ccbfdccc01cf3e247859b2788ffbdf7d1ce
   - 
   - 
   - 
