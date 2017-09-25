@@ -5,7 +5,6 @@ TagManager:
   serializedVersion: 2
   tags:
   - Spawner
-  - Avoid
   layers:
   - Default
   - TransparentFX
@@ -15,11 +14,7 @@ TagManager:
   - UI
   - 
   - 
-<<<<<<< HEAD
-  - Fish
-=======
-  - Catchable
->>>>>>> Mark
+  - 
   - 
   - 
   - 
