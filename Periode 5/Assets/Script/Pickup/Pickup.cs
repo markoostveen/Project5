@@ -16,6 +16,6 @@ public class Pickup : MonoBehaviour {
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Player")
-            other.SendMessage("PickUp");
+            other.SendMessage("PickUp", m_obj , SendMessageOptions.RequireReceiver);
     }
 }
