@@ -37,6 +37,16 @@ public class Fish : Base_AI , IFish{
         m_State = (byte)State.catched;
         Deactivate();
     }
+    
+    public void BeingCatched()
+    {
+        m_State = (byte)State.beingcatched;
+    }
+
+    public void Escaped()
+    {
+        m_State = (byte)State.Swimming;
+    }
 
     protected override Vector3 CreateWanderTarget(float Radius, Vector3 Pivot)
     {
