@@ -18,6 +18,7 @@ public class CharacterControl : MonoBehaviour
     private float m_VerMoveSpeed;
 
     public Action<IFish> M_Catched { get; set; }
+    public Action<PowerUp> M_AddPowerup { get; set; }
 
     public CharacterControl(KeyCode upKey, KeyCode downKey, KeyCode leftKey, KeyCode rightKey, KeyCode toFishingKey)
     {

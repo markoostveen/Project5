@@ -79,6 +79,6 @@ public class Walking : ICharacterStates
 
     public void AddPowerUp(PowerUp Power)
     {
-
+        m_CharacterController.M_AddPowerup.Invoke(Power);
     }
 }

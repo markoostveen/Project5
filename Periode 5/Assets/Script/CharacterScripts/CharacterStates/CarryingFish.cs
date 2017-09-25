@@ -73,6 +73,6 @@ public class CarryingFish : ICharacterStates
 
     public void AddPowerUp(PowerUp Power)
     {
-
+        m_CharacterControle.M_AddPowerup.Invoke(Power);
     }
 }
