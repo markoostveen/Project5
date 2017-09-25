@@ -5,7 +5,7 @@ using System;
 
 public class Fishing : ICharacterStates
 {
-    private GameObject m_CurrentSelectedFish;
+    private IFish m_CurrentSelectedFish;
 
     private List<IFish> m_FishInArea;
     private List<IFish> m_CaughtFish;
@@ -40,21 +40,25 @@ public class Fishing : ICharacterStates
 
         SwitchSelectedFish();
 
-        if (Input.GetKeyDown(KeyCode.W))
+        if (m_CurrentSelectedFish != null)
         {
-            if (m_CurrentSelectedFish != null)
+            if (Input.GetKeyDown(KeyCode.W))
             {
-                //In vis stil laten staan.
-                m_CatchMeter += 100;
-            }
+                Debug.Log("Catching Fish");
 
-            if (m_CatchMeter >= 100)
-            {
-                CatchFish();
+                m_CurrentSelectedFish.BeingCatched();
+                m_CatchMeter += 100;
+
+
+                if (m_CatchMeter >= 100)
+                {
+                    Debug.Log("Cought it");
+                    CatchFish();
+                }
             }
         }
 
-        if (Input.GetKey(KeyCode.S))
+        if (Input.GetKey(KeyCode.Q))
         {
             ToWalking();
         }
@@ -133,15 +137,23 @@ public class Fishing : ICharacterStates
         }
     }
 
+    public void SetCurrentSelecetedFish()
+    {
+        m_CurrentSelectedFish = m_FishInArea[0];
+    }
+
     private void GetAllFishInArea()
     {
         m_FishInArea.Clear();
 
-        Collider[] hitColliders = Physics.OverlapSphere(m_CharacterControl.gameObject.transform.position, 5000f, 8);
+        Collider[] hitColliders = Physics.OverlapSphere(m_CharacterControl.gameObject.transform.position, 5000f);
 
         foreach (Collider col in hitColliders)
         {
-            m_FishInArea.Add(col.gameObject.GetComponent<IFish>());
+            if (col.gameObject.layer == 8)
+            {
+                m_FishInArea.Add(col.gameObject.GetComponent<IFish>());
+            }    
         }
     }
 
