@@ -26,7 +26,7 @@ public class Walking : ICharacterStates
     public void UpdateState()
     {
         Debug.Log("Walking");
-        if (Input.GetKey(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.Q))
         {
             ToFishing();
         }

@@ -3,12 +3,11 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-<<<<<<< HEAD
   tags:
+  - Avoid
+  - PowerUp
   - Spawner
-=======
-  tags: []
->>>>>>> DevsTest
+  - Scorepoint
   layers:
   - Default
   - TransparentFX
@@ -18,11 +17,7 @@ TagManager:
   - UI
   - 
   - 
-<<<<<<< HEAD
-  - 
-=======
   - Fish
->>>>>>> DevsTest
   - 
   - 
   - 

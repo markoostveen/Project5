@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class CharacterControl : MonoBehaviour
+public class CharacterControl : PoolObject
 {
     private Walking m_WalkingState;
     private Fishing m_FishingState;
@@ -103,6 +103,14 @@ public class CharacterControl : MonoBehaviour
         if (m_CurrentState == m_FishingState)
         {
             m_FishingState.OnTriggerEnter(other);
+        }
+
+        if (other.CompareTag("Scorepoint"))
+        {
+            if (m_CurrentState == m_CarryingFishState)
+            {
+                m_CarryingFishState.DropFishInScorepoint();
+            }
         }
     }
 
