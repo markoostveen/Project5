@@ -39,7 +39,7 @@ public class ObjectPool : MonoBehaviour {
             {
                 m_Pools.Add(new KeyValuePair<List<PoolObject>, string>(new List<PoolObject>(), ObjectList[i].m_Prefab.name));
                 GameObject Parrent = new GameObject(ObjectList[i].m_Prefab.name);
-                Parrent.transform.parent = transform;
+                Parrent.transform.SetParent(transform);
                 List<PoolObject> pool = GetPool(ObjectList[i].m_Prefab.name);
                 for (int j = 0; j < ObjectList[i].m_Amount; j++)
                 {
@@ -90,9 +90,10 @@ public class ObjectPool : MonoBehaviour {
 
         PoolObject obj = RemoveFromPool(GetPool(name));
         if (obj != null)
-            obj.transform.parent = Parrent;
+            obj.transform.SetParent(Parrent);
         return obj;
     }
+
     public PoolObject Spawn(GameObject prefab)
     {
         List<PoolObject> Poollist = GetPool(prefab.name);
@@ -138,7 +139,7 @@ public class ObjectPool : MonoBehaviour {
 
         PoolObject obj = RemoveFromPool(GetPool(prefab.name));
         if (obj != null)
-            obj.transform.parent = Parrent;
+            obj.transform.SetParent(Parrent);
         return obj;
     }
     public PoolObject Spawn(List<PoolObject> objectpool)
@@ -167,7 +168,7 @@ public class ObjectPool : MonoBehaviour {
     {
         PoolObject obj = RemoveFromPool(objectpool);
         if (obj != null)
-            obj.transform.parent = Parrent;
+            obj.transform.SetParent(Parrent);
         return obj;
     }
     public PoolObject Spawn(List<PoolObject> objectpool, GameObject prefab , Vector3 SpawnPosition)
@@ -193,7 +194,7 @@ public class ObjectPool : MonoBehaviour {
 
         PoolObject obj = RemoveFromPool(objectpool);
         if (obj != null)
-            obj.transform.parent = Parrent;
+            obj.transform.SetParent(Parrent);
         return obj;
     }
     #endregion
@@ -201,7 +202,7 @@ public class ObjectPool : MonoBehaviour {
     private void AddToPool(List<PoolObject> m_Pool, PoolObject Script, Transform parrent)
     {
         m_Pool.Add(Script);
-        Script.gameObject.transform.parent = parrent;
+        Script.gameObject.transform.SetParent(parrent);
     }
 
     private PoolObject RemoveFromPool(List<PoolObject> Poollist)
@@ -251,7 +252,7 @@ public class ObjectPool : MonoBehaviour {
 
             m_Pools.Add(new KeyValuePair<List<PoolObject>, string>(new List<PoolObject>(), Input.m_Prefab.name));
             GameObject Parrent = new GameObject(Input.m_Prefab.name);
-            Parrent.transform.parent = transform;
+            Parrent.transform.SetParent(transform);
             List<PoolObject> pool = GetPool(Input.m_Prefab.name);
             for (int j = 0; j < Input.m_Amount; j++)
             {
