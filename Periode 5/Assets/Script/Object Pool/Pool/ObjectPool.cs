@@ -16,7 +16,7 @@ public class ObjectPool : MonoBehaviour {
     {
         if(ObjectList == null)
             ObjectList = new Poolobj[0];
-        if (m_Tags == null)
+        if (m_Tags   == null)
             m_Tags = new string[0];
     }
 
@@ -28,18 +28,26 @@ public class ObjectPool : MonoBehaviour {
         else
             Destroy(gameObject);
 
+        if (m_Tags.Length == 0)
+            Debug.LogWarning("No tags are associated with spawners, add them, its strongly suggested. if you do not, it will cost some performace on startup",transform);
+
         //loading default assets in pool
         m_Pools = new List<KeyValuePair<List<PoolObject>, string>>();
         for (int i = 0; i < ObjectList.Length; i++)
         {
-            m_Pools.Add(new KeyValuePair<List<PoolObject>, string>(new List<PoolObject>(), ObjectList[i].m_Prefab.name));
-            GameObject Parrent = new GameObject(ObjectList[i].m_Prefab.name);
-            Parrent.transform.parent = transform;
-            List<PoolObject> pool = GetPool(ObjectList[i].m_Prefab.name);
-            for (int j = 0; j < ObjectList[i].m_Amount; j++)
+            if (ObjectList[i].m_Prefab != null)
             {
-                SpawnInPool(Parrent.transform, ObjectList[i].m_Prefab, pool);
+                m_Pools.Add(new KeyValuePair<List<PoolObject>, string>(new List<PoolObject>(), ObjectList[i].m_Prefab.name));
+                GameObject Parrent = new GameObject(ObjectList[i].m_Prefab.name);
+                Parrent.transform.SetParent(transform);
+                List<PoolObject> pool = GetPool(ObjectList[i].m_Prefab.name);
+                for (int j = 0; j < ObjectList[i].m_Amount; j++)
+                {
+                    SpawnInPool(Parrent.transform, ObjectList[i].m_Prefab, pool);
+                }
             }
+            else
+                Debug.LogError("No object attached a default object", transform);
         }
 
         m_RemappingRequest = true;
@@ -82,9 +90,10 @@ public class ObjectPool : MonoBehaviour {
 
         PoolObject obj = RemoveFromPool(GetPool(name));
         if (obj != null)
-            obj.transform.parent = Parrent;
+            obj.transform.SetParent(Parrent);
         return obj;
     }
+
     public PoolObject Spawn(GameObject prefab)
     {
         List<PoolObject> Poollist = GetPool(prefab.name);
@@ -130,7 +139,7 @@ public class ObjectPool : MonoBehaviour {
 
         PoolObject obj = RemoveFromPool(GetPool(prefab.name));
         if (obj != null)
-            obj.transform.parent = Parrent;
+            obj.transform.SetParent(Parrent);
         return obj;
     }
     public PoolObject Spawn(List<PoolObject> objectpool)
@@ -159,7 +168,7 @@ public class ObjectPool : MonoBehaviour {
     {
         PoolObject obj = RemoveFromPool(objectpool);
         if (obj != null)
-            obj.transform.parent = Parrent;
+            obj.transform.SetParent(Parrent);
         return obj;
     }
     public PoolObject Spawn(List<PoolObject> objectpool, GameObject prefab , Vector3 SpawnPosition)
@@ -185,7 +194,7 @@ public class ObjectPool : MonoBehaviour {
 
         PoolObject obj = RemoveFromPool(objectpool);
         if (obj != null)
-            obj.transform.parent = Parrent;
+            obj.transform.SetParent(Parrent);
         return obj;
     }
     #endregion
@@ -193,7 +202,7 @@ public class ObjectPool : MonoBehaviour {
     private void AddToPool(List<PoolObject> m_Pool, PoolObject Script, Transform parrent)
     {
         m_Pool.Add(Script);
-        Script.gameObject.transform.parent = parrent;
+        Script.gameObject.transform.SetParent(parrent);
     }
 
     private PoolObject RemoveFromPool(List<PoolObject> Poollist)
@@ -243,7 +252,7 @@ public class ObjectPool : MonoBehaviour {
 
             m_Pools.Add(new KeyValuePair<List<PoolObject>, string>(new List<PoolObject>(), Input.m_Prefab.name));
             GameObject Parrent = new GameObject(Input.m_Prefab.name);
-            Parrent.transform.parent = transform;
+            Parrent.transform.SetParent(transform);
             List<PoolObject> pool = GetPool(Input.m_Prefab.name);
             for (int j = 0; j < Input.m_Amount; j++)
             {

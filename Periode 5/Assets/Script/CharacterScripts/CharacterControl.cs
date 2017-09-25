@@ -34,6 +34,7 @@ public class CharacterControl : MonoBehaviour
         m_FishingState = new Fishing(this);
         m_CarryingFishState = new CarryingFish(this, ref m_HorMoveSpeed, ref m_VerMoveSpeed);
         m_CurrentState = m_WalkingState;
+        GameObject.Find("GameManager").GetComponent<GameManager>().RegisterPlayer(this);
     }
 
     private void SetMoveSpeed()

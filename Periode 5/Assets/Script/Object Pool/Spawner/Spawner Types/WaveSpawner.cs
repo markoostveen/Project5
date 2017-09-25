@@ -9,8 +9,6 @@ public class WaveSpawner : Spawner, IWaveSpawner {
     [HideInInspector]
     public float M_MaxTimer { get; set; }
 
-    [HideInInspector]
-    public Transform[] m_SpawnPosition;
 
     [HideInInspector]
     public List<SpawnItem> M_Wave { get; set; }
@@ -18,6 +16,7 @@ public class WaveSpawner : Spawner, IWaveSpawner {
     private void OnEnable()
     {
         M_Wave = new List<SpawnItem>();
+        M_Timer = M_MaxTimer;
     }
 
     protected override void FixedUpdate()
@@ -32,16 +31,21 @@ public class WaveSpawner : Spawner, IWaveSpawner {
 
         for (int i = 0; i < M_Spawners.Count; i++)
         {
-            if (Random.Range(0, 100) < M_Spawners[i].m_Obj.m_SpawnProcentage && M_Spawners[i].M_Status)
+            try
             {
-                SpawnItem spawnItem = new SpawnItem()
+                if (Random.Range(0, 100) < M_Spawners[i].m_Obj.m_SpawnProcentage && M_Spawners[i].M_Status)
                 {
-                    m_prefab = M_Spawners[i].m_Obj.m_Prefab,
-                    m_Pool = M_Spawners[i].m_Pool,
-                    m_SpawnPosition = m_SpawnPosition[0]
-                };
-                M_Wave.Add(spawnItem);
+                    SpawnItem spawnItem = new SpawnItem()
+                    {
+                        m_prefab = M_Spawners[i].m_Obj.m_Prefab,
+                        m_Pool = M_Spawners[i].m_Pool,
+                        m_SpawnPosition = M_SpawnPosition[0]
+                    };
+                    M_Wave.Add(spawnItem);
+                }
             }
+            catch (System.NullReferenceException) { continue; }
+
         }
     }
 
@@ -57,13 +61,20 @@ public class WaveSpawner : Spawner, IWaveSpawner {
 
         for (int i = 0; i < tempwave.Length; i++)
         {
-            bool success = Spawn(i, tempwave[i].m_Pool, tempwave[i].m_prefab, tempwave[i].m_SpawnPosition);
+            if (tempwave[i].m_SpawnPosition == null)
+            {
+                Debug.LogWarning("Spawning Aborted: Missing Spawnpoint", transform);
+                continue;
+            }
+
+
+            bool success = Spawn(i, tempwave[i].m_Pool, tempwave[i].m_prefab, tempwave[i].m_SpawnPosition.position);
             if (!success)
             {
                 yield return new WaitForEndOfFrame();
-                success = Spawn(i, tempwave[i].m_Pool, tempwave[i].m_prefab, tempwave[i].m_SpawnPosition);
+                success = Spawn(i, tempwave[i].m_Pool, tempwave[i].m_prefab, tempwave[i].m_SpawnPosition.position);
                 if(!success)
-                    Debug.LogWarning("Spawn function failed");
+                    Debug.LogWarning("Spawn function failed" , transform);
             }
             yield return new WaitForSecondsRealtime(0.005f);
         }

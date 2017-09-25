@@ -18,7 +18,7 @@ public class PoolObject :  MonoBehaviour
 
     public virtual void Activate()
     {
-        transform.parent = null;
+        transform.SetParent(null);
     }
 
     protected virtual void Deactivate()

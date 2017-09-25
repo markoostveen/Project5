@@ -12,20 +12,23 @@ public class WaveSpawnerMultipeSpawnPoints : WaveSpawner, IWaveSpawner {
 
         for (int i = 0; i < M_Spawners.Count; i++)
         {
-            if (Random.Range(0, 100) < M_Spawners[i].m_Obj.m_SpawnProcentage && M_Spawners[i].M_Status)
+            if(M_Spawners[i].m_Obj != null)
             {
-                int SpawnPointIndex = Random.Range(0, m_SpawnPosition.Length);
-                if (m_SpawnPosition.Length == 0)
-                    Debug.LogError("No Spawnpoints for Spawner found", transform);
-                else
+                if (Random.Range(0, 100) < M_Spawners[i].m_Obj.m_SpawnProcentage && M_Spawners[i].M_Status)
                 {
-                    SpawnItem spawnItem = new SpawnItem()
+                    int SpawnPointIndex = Random.Range(0, M_SpawnPosition.Length);
+                    if (M_SpawnPosition.Length == 0)
+                        Debug.LogWarning("No Spawnpoints for Spawner found, Spawn aborted", transform);
+                    else
                     {
-                        m_prefab = M_Spawners[i].m_Obj.m_Prefab,
-                        m_Pool = M_Spawners[i].m_Pool,
-                        m_SpawnPosition = m_SpawnPosition[SpawnPointIndex]
-                    };
-                    M_Wave.Add(spawnItem);
+                        SpawnItem spawnItem = new SpawnItem()
+                        {
+                            m_prefab = M_Spawners[i].m_Obj.m_Prefab,
+                            m_Pool = M_Spawners[i].m_Pool,
+                            m_SpawnPosition = M_SpawnPosition[SpawnPointIndex]
+                        };
+                        M_Wave.Add(spawnItem);
+                    }
                 }
             }
         }

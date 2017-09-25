@@ -3,36 +3,54 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+
 [RequireComponent(typeof(NavMeshAgent))]
 public class Base_AI : PoolObject {
 
     protected NavMeshAgent m_Agent;
 
-    private float UpdateTimer;
+    private float m_UpdateTimer;
 
     protected virtual void Awake()
     {
         m_Agent = GetComponent<NavMeshAgent>();
-        UpdateTimer = Random.Range(0, 100) / 100;
+        m_UpdateTimer = Random.Range(0, 100) / 100;
     }
 
     protected virtual void FixedUpdate()
     {
-        UpdateTimer += Time.deltaTime;
-        if (UpdateTimer >= 60)
+        m_UpdateTimer += Time.deltaTime;
+        if (m_UpdateTimer >= 1)
             AiUpdater();
     }
 
-    protected virtual void AiUpdater() { }
+    public override void Activate()
+    {
+        base.Activate();
+        m_Agent.SetDestination(CreateWanderTarget(50, transform.position));
+    }
 
-    protected Vector3 CreateWanderTarget(float Radius, Vector3 Pivot)
+    protected override void Deactivate()
+    {
+        base.Deactivate();
+        m_Agent.SetDestination(transform.position);
+    }
+
+    protected virtual void AiUpdater()
+    {
+        if (m_Agent.remainingDistance < m_Agent.stoppingDistance)
+             m_Agent.SetDestination(CreateWanderTarget(50,transform.position));
+        m_UpdateTimer = 0;
+    }
+
+    protected virtual Vector3 CreateWanderTarget(float Radius, Vector3 Pivot )
     {
         Vector3 newtarget = new Vector3(999,999,999);
         NavMeshPath newpath = new NavMeshPath();
 
         int Retrys = 0;
 
-        while (!m_Agent.CalculatePath(newtarget, newpath) && Retrys < 50)
+        while (!m_Agent.CalculatePath(newtarget, newpath) && Retrys < 10)
         {
             newtarget = Pivot + new Vector3(Random.insideUnitSphere.x * Radius, transform.position.y , Random.insideUnitSphere.z * Radius);
             Retrys++;
