@@ -11,7 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e6010aff4ad15c42983c1bf88541cda, type: 3}
   m_Name: TestHat
   m_EditorClassIdentifier: 
-  TimeActive: 5
-  AddSpeed: 0.1
-  AddThrowSpeed: 0
-  AddCatchSpeed: 5
+  m_TimeActive: 5
+  m_AddSpeed: 1
+  m_AddThrowSpeed: 0
+  m_AddCatchSpeed: 5
