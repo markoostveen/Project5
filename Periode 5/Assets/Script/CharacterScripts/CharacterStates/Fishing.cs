@@ -147,7 +147,7 @@ public class Fishing : ICharacterStates
 
     public void AddPowerUp(PowerUp Power)
     {
-
+        m_CharacterControl.M_AddPowerup.Invoke(Power);
     }
 
 }

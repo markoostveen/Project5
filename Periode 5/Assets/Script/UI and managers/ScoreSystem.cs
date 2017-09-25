@@ -10,15 +10,15 @@ public class PlayerScore
 
     public PlayerScore(CharacterControl observer)
     {
-
+        observer.M_Catched += Catch;
     }
 
-    public void Catch()
+    public void Catch(IFish fish)
     {
 
     }
 
-    public void AddPowerup()
+    public void AddPowerup(PowerUp Power)
     {
 
     }
