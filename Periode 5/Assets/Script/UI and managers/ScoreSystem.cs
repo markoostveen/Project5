@@ -8,7 +8,7 @@ public class PlayerScore
     public byte m_Id;
     public float m_Score;
 
-    public PlayerScore(ChacracterControl observer)
+    public PlayerScore(CharacterControl observer)
     {
 
     }

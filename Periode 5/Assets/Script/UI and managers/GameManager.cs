@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour {
 
     }
 
-    public void RegisterPlayer(ChacracterControl Player)
+    public void RegisterPlayer(CharacterControl Player)
     {
 
         m_Scores.Add(new PlayerScore(Player));
