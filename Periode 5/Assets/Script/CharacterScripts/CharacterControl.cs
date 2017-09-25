@@ -83,6 +83,7 @@ public class CharacterControl : MonoBehaviour
     {
         m_CurrentState = m_FishingState;
         m_FishingState.InitializeState();
+        m_FishingState.SetCurrentSelecetedFish();
     }
 
     public void SwitchToCarryingState(List<IFish> caughtFish)
