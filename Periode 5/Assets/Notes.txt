@@ -4,3 +4,7 @@ if fish is being catched play being catched animation
 
 Making score work
 
+
+Test if everything works
+score counting
+powerup countdown
