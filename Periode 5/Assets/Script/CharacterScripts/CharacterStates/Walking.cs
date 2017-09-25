@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class Walking : ICharacterStates
 {
-    private ChacracterControl m_CharacterController;
+    private CharacterControl m_CharacterController;
 
     private float m_HorMoveSpeed;
     private float m_VerMoveSpeed;
     private float m_AttackCooldown;
 
-    public Walking(ChacracterControl characterController, ref float horMoveSpeed, ref float verMoveSpeed)
+    public Walking(CharacterControl characterController, ref float horMoveSpeed, ref float verMoveSpeed)
     {
         m_CharacterController = characterController;
         m_HorMoveSpeed = horMoveSpeed;
@@ -29,6 +29,8 @@ public class Walking : ICharacterStates
         {
             ToFishing();
         }
+
+        Movement();
     }
 
     private void Movement()
@@ -68,7 +70,7 @@ public class Walking : ICharacterStates
         {
             if (other.CompareTag("Player"))
             {
-                other.gameObject.GetComponent<ChacracterControl>().DropFish();
+                other.gameObject.GetComponent<CharacterControl>().DropFish();
             }
         }
     }
