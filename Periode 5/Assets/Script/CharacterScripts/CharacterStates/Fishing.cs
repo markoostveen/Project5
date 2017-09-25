@@ -1,23 +1,27 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class Fishing : ICharacterStates
 {
-    private GameObject m_CurrentSelectedFish;
+    private IFish m_CurrentSelectedFish;
 
-    private List<GameObject> m_FishInArea;
-    private List<GameObject> m_CaughtFish;
+    private List<IFish> m_FishInArea;
+    private List<IFish> m_CaughtFish;
 
     private CharacterControl m_CharacterControl;
 
     private int m_SelectedFishIndex;
     private int m_CatchMeter;
 
+    public Action<IFish> m_Catched;
+
     public Fishing(CharacterControl characterController)
     {
-        m_FishInArea = new List<GameObject>();
-        m_CaughtFish = new List<GameObject>();
+        m_CharacterControl = characterController;
+        m_FishInArea = new List<IFish>();
+        m_CaughtFish = new List<IFish>();
     }
 
     public void InitializeState()
@@ -32,23 +36,29 @@ public class Fishing : ICharacterStates
 
     public void UpdateState()
     {
+        Debug.Log("Fishing");
+
         SwitchSelectedFish();
 
-        if (Input.GetKeyDown(KeyCode.W))
+        if (m_CurrentSelectedFish != null)
         {
-            if (m_CurrentSelectedFish != null)
+            if (Input.GetKeyDown(KeyCode.W))
             {
-                //In vis stil laten staan.
-                m_CatchMeter += 1;
-            }
+                Debug.Log("Catching Fish");
 
-            if (m_CatchMeter >= 100)
-            {
-                CatchFish();
+                m_CurrentSelectedFish.BeingCatched();
+                m_CatchMeter += 100;
+
+
+                if (m_CatchMeter >= 100)
+                {
+                    Debug.Log("Cought it");
+                    CatchFish();
+                }
             }
         }
 
-        if (Input.GetKey(KeyCode.S))
+        if (Input.GetKey(KeyCode.Q))
         {
             ToWalking();
         }
@@ -88,8 +98,12 @@ public class Fishing : ICharacterStates
     private void CatchFish()
     {
         m_CaughtFish.Add(m_FishInArea[m_SelectedFishIndex]);
+        m_CaughtFish[m_CaughtFish.Count - 1].BeingCatched();
+
         m_FishInArea.RemoveAt(m_SelectedFishIndex);
         m_SelectedFishIndex = 0;
+
+        m_CharacterControl.M_Catched.Invoke(m_CaughtFish[m_CaughtFish.Count - 1]);
     }
 
     public void ToWalking()
@@ -123,17 +137,29 @@ public class Fishing : ICharacterStates
         }
     }
 
+    public void SetCurrentSelecetedFish()
+    {
+        m_CurrentSelectedFish = m_FishInArea[0];
+    }
+
     private void GetAllFishInArea()
     {
         m_FishInArea.Clear();
 
-        Collider[] hitColliders = Physics.OverlapSphere(m_CurrentSelectedFish.gameObject.transform.position, 4f, 8);
+        Collider[] hitColliders = Physics.OverlapSphere(m_CharacterControl.gameObject.transform.position, 5000f);
 
         foreach (Collider col in hitColliders)
         {
-            m_FishInArea.Add(col.gameObject);
+            if (col.gameObject.layer == 8)
+            {
+                m_FishInArea.Add(col.gameObject.GetComponent<IFish>());
+            }    
         }
     }
 
+    public void AddPowerUp(PowerUp Power)
+    {
+        m_CharacterControl.M_AddPowerup.Invoke(Power);
+    }
 
 }

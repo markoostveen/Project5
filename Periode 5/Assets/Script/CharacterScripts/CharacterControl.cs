@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class CharacterControl : MonoBehaviour
 {
@@ -15,6 +16,9 @@ public class CharacterControl : MonoBehaviour
     private float m_HorMoveSpeed;
     [SerializeField]
     private float m_VerMoveSpeed;
+
+    public Action<IFish> M_Catched { get; set; }
+    public Action<PowerUp> M_AddPowerup { get; set; }
 
     public CharacterControl(KeyCode upKey, KeyCode downKey, KeyCode leftKey, KeyCode rightKey, KeyCode toFishingKey)
     {
@@ -56,6 +60,11 @@ public class CharacterControl : MonoBehaviour
         m_CurrentState.UpdateState();
 	}
 
+    public void AddPowerUp(PowerUp Power)
+    {
+
+    }
+
     public void DropFish()
     {
         if (m_CurrentState == m_CarryingFishState)
@@ -74,9 +83,10 @@ public class CharacterControl : MonoBehaviour
     {
         m_CurrentState = m_FishingState;
         m_FishingState.InitializeState();
+        m_FishingState.SetCurrentSelecetedFish();
     }
 
-    public void SwitchToCarryingState(List<GameObject> caughtFish)
+    public void SwitchToCarryingState(List<IFish> caughtFish)
     {
         m_CurrentState = m_CarryingFishState;
         m_CarryingFishState.InitializeState();

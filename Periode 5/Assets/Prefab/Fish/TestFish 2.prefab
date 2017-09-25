@@ -122,10 +122,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69dad920bb3dc0b43b23d1fd69bf476b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_DistanceFromAvoidencelayers:
-  - 5
-  m_tagsToAvoid:
-  - Avoid
 --- !u!195 &195922165051578128
 NavMeshAgent:
   m_ObjectHideFlags: 1

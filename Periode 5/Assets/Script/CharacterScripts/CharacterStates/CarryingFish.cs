@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CarryingFish : ICharacterStates
 {
-    private List<GameObject> m_CaughtFish;
+    private List<IFish> m_CaughtFish;
 
     private CharacterControl m_CharacterControle;
 
@@ -14,7 +14,7 @@ public class CarryingFish : ICharacterStates
 
     public CarryingFish(CharacterControl characterController, ref float horMoveSpeed, ref float verMoveSpeed)
     {
-        m_CaughtFish = new List<GameObject>();
+        m_CaughtFish = new List<IFish>();
         m_CharacterControle = characterController;
         m_HorMovementSpeed = horMoveSpeed;
         m_VerMovementSpeed = verMoveSpeed;
@@ -25,7 +25,7 @@ public class CarryingFish : ICharacterStates
         
     }
 
-    public void GetCaughtFish(List<GameObject> caughtFish)
+    public void GetCaughtFish(List<IFish> caughtFish)
     {
         for (int i = 0; i < caughtFish.Count; i++)
         {
@@ -35,6 +35,8 @@ public class CarryingFish : ICharacterStates
 
     public void UpdateState()
     {
+        Debug.Log("Carrying");
+
         m_HorMovementSpeed = m_HorMovementSpeed * (1f / m_CaughtFish.Count);
         m_VerMovementSpeed = m_VerMovementSpeed * (1f / m_CaughtFish.Count);
 
@@ -67,5 +69,10 @@ public class CarryingFish : ICharacterStates
     public void OnTriggerStay(Collider other)
     {
 
+    }
+
+    public void AddPowerUp(PowerUp Power)
+    {
+        m_CharacterControle.M_AddPowerup.Invoke(Power);
     }
 }

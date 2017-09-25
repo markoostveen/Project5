@@ -5,21 +5,34 @@ using UnityEngine;
 
 public class PlayerScore
 {
-    public byte m_Id;
-    public float m_Score;
+    public PlayerCurrentScore m_Struct;
 
-    public PlayerScore(ChacracterControl observer)
+    public PlayerScore(CharacterControl observer)
     {
-
+        observer.M_Catched = new System.Action<IFish>(Catch);
+        observer.M_AddPowerup = new System.Action<PowerUp>(AddPowerup);
+        m_Struct = new PlayerCurrentScore();
     }
 
-    public void Catch()
+    private void Catch(IFish fish)
     {
-
+        Fish actualfish = (Fish)fish;
+        switch (actualfish.name.Substring(1))
+        {
+            case "Fish":
+                m_Struct.Score += 1;
+                break;
+        }
     }
 
-    public void AddPowerup()
+    private void AddPowerup(PowerUp Power)
     {
-
+        m_Struct.CurrentPowerups.Add(Power);
     }
+}
+
+public struct PlayerCurrentScore
+{
+    public float Score;
+    public List<PowerUp> CurrentPowerups;
 }

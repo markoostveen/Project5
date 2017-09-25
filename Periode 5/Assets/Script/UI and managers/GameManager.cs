@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour {
 
     }
 
-    public void RegisterPlayer(ChacracterControl Player)
+    public void RegisterPlayer(CharacterControl Player)
     {
 
         m_Scores.Add(new PlayerScore(Player));
@@ -58,7 +58,7 @@ public class GameManager : MonoBehaviour {
         }
 
         PlayerStats stats = playerstats.GetComponent<PlayerStats>();
-        stats.UpdateID((byte)M_Players.Count);
+        stats.UpdateID((byte)M_Players.Count, score, 200);
     }
 
 }

@@ -1,6 +1,6 @@
-﻿using System.Collections;
+﻿using UnityEngine;
 using System.Collections.Generic;
-using UnityEngine;
+using System;
 
 public interface ICharacterStates
 {
@@ -9,4 +9,6 @@ public interface ICharacterStates
     void UpdateState();
 
     void OnTriggerStay(Collider collider);
+
+    void AddPowerUp(PowerUp Power);
 }

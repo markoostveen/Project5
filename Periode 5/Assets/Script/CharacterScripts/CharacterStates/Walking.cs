@@ -25,6 +25,7 @@ public class Walking : ICharacterStates
 
     public void UpdateState()
     {
+        Debug.Log("Walking");
         if (Input.GetKey(KeyCode.Q))
         {
             ToFishing();
@@ -70,8 +71,14 @@ public class Walking : ICharacterStates
         {
             if (other.CompareTag("Player"))
             {
+                /// fabio moet slaan en stoppen met vissen vangen
                 other.gameObject.GetComponent<CharacterControl>().DropFish();
             }
         }
+    }
+
+    public void AddPowerUp(PowerUp Power)
+    {
+        m_CharacterController.M_AddPowerup.Invoke(Power);
     }
 }
