@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ChacracterControl : MonoBehaviour
+public class CharacterControl : MonoBehaviour
 {
     private Walking m_WalkingState;
     private Fishing m_FishingState;
@@ -16,7 +16,7 @@ public class ChacracterControl : MonoBehaviour
     [SerializeField]
     private float m_VerMoveSpeed;
 
-    public ChacracterControl(KeyCode upKey, KeyCode downKey, KeyCode leftKey, KeyCode rightKey, KeyCode toFishingKey)
+    public CharacterControl(KeyCode upKey, KeyCode downKey, KeyCode leftKey, KeyCode rightKey, KeyCode toFishingKey)
     {
         m_KeyCodes = new KeyCode[4];
 
@@ -57,7 +57,10 @@ public class ChacracterControl : MonoBehaviour
 
     public void DropFish()
     {
-        
+        if (m_CurrentState == m_CarryingFishState)
+        {
+            m_CarryingFishState.DropFish();
+        }
     }
 
     public void SwitchToWalkingState()
@@ -72,14 +75,31 @@ public class ChacracterControl : MonoBehaviour
         m_FishingState.InitializeState();
     }
 
-    public void SwitchToCarryingState()
+    public void SwitchToCarryingState(List<GameObject> caughtFish)
     {
         m_CurrentState = m_CarryingFishState;
         m_CarryingFishState.InitializeState();
+        m_CarryingFishState.GetCaughtFish(caughtFish);
     }
 
     public void OnTriggerStay(Collider other)
     {
         
+    }
+
+    public void OnTriggerEnter(Collider other)
+    {
+        if (m_CurrentState == m_FishingState)
+        {
+            m_FishingState.OnTriggerEnter(other);
+        }
+    }
+
+    public void OnTriggerExit(Collider other)
+    {
+        if (m_CurrentState == m_FishingState)
+        {
+            m_FishingState.OnTriggerExit(other);
+        }
     }
 }
