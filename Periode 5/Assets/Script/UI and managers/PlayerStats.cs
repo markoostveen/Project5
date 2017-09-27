@@ -31,11 +31,13 @@ public class PlayerStats : PoolObject {
 
     private void Update()
     {
-        foreach (PowerUp i in m_ScoreSystem.m_Struct.CurrentPowerups)
+        for (int i = 0; i < m_ScoreSystem.m_Struct.CurrentPowerups.Count; i++)
         {
-            i.Update();
-            if (i.M_TimeActiveRef < 0)
-                m_ScoreSystem.m_Struct.CurrentPowerups.Remove(i);
+            PowerUp powerup = m_ScoreSystem.m_Struct.CurrentPowerups[i];
+            powerup.Update();
+
+            if (powerup.GetStats().m_TimeActive < 0)
+                m_ScoreSystem.m_Struct.CurrentPowerups.Remove(m_ScoreSystem.m_Struct.CurrentPowerups[i]);
         }
 
 

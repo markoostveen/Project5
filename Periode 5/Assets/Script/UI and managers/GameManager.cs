@@ -36,24 +36,27 @@ public class GameManager : MonoBehaviour {
         M_Players.Add(Player.gameObject);
 
         Transform UI = GameObject.Find("UI").transform;
-        GameObject playerstats = ObjectPool.Pool.Spawn(m_PlayerstatsPrefab, UI).gameObject;
+        PoolObject playerstatspool = ObjectPool.Pool.Spawn(m_PlayerstatsPrefab, UI);
+        if (playerstatspool == null)
+            return;
+        GameObject playerstats = playerstatspool.gameObject;
         RectTransform playerstatstransform = playerstats.GetComponent<RectTransform>();
 
         switch(M_Players.Count){
             case 1:
-                playerstatstransform.localPosition = new Vector3(-810, 490, 0);
+                playerstatstransform.localPosition = new Vector3(-675, 390, 0);
                 break;
 
             case 2:
-                playerstatstransform.localPosition = new Vector3(810, 490, 0);
+                playerstatstransform.localPosition = new Vector3(675, 390, 0);
                 break;
 
             case 3:
-                playerstatstransform.localPosition = new Vector3(-810, -490, 0);
+                playerstatstransform.localPosition = new Vector3(-675, -390, 0);
                 break;
 
             case 4:
-                playerstatstransform.localPosition = new Vector3(810, -490, 0);
+                playerstatstransform.localPosition = new Vector3(675, -390, 0);
                 break;
         }
 

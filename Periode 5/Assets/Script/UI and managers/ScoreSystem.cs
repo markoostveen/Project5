@@ -6,11 +6,15 @@ using UnityEngine;
 public class PlayerScore
 {
     public PlayerCurrentScore m_Struct;
+    private CharacterControl m_PlayerController;
 
     public PlayerScore(CharacterControl observer)
     {
+        m_PlayerController = observer;
+
         observer.M_Catched = new System.Action<IFish>(Catch);
         observer.M_AddPowerup = new System.Action<PowerUp>(AddPowerup);
+
         m_Struct = new PlayerCurrentScore()
         {
             CurrentPowerups = new List<PowerUp>()
@@ -20,7 +24,8 @@ public class PlayerScore
     private void Catch(IFish fish)
     {
         Fish actualfish = (Fish)fish;
-        switch (actualfish.name.Substring(1))
+        string Actualname = actualfish.name.Split('(')[0];
+        switch (Actualname)
         {
             case "Fish":
                 m_Struct.Score += 1;

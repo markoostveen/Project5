@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider))]
-public class Pickup : MonoBehaviour {
+public class Pickup : PoolObject {
 
     [SerializeField]
-    ScriptableObject m_obj;
+    ScriptablePowerUp m_obj;
 
     private void Start()
     {
@@ -16,6 +16,9 @@ public class Pickup : MonoBehaviour {
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Player")
-            other.SendMessage("PickUp", m_obj , SendMessageOptions.RequireReceiver);
+        {
+            other.SendMessage("PickUp", m_obj, SendMessageOptions.RequireReceiver);
+            Deactivate();
+        }
     }
 }

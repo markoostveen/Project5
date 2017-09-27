@@ -23,7 +23,10 @@ public class PoolObject :  MonoBehaviour
 
     protected virtual void Deactivate()
     {
-        m_Info.Callback.Invoke(m_Info.Pool,this,m_Info.Parrent);
+        if (m_Info.Callback != null)
+            m_Info.Callback.Invoke(m_Info.Pool, this, m_Info.Parrent);
+        else
+            Debug.LogError("Callback can't be found", transform);
         gameObject.SetActive(false);
     }
 }

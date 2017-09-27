@@ -121,4 +121,10 @@ public class CharacterControl : PoolObject
             m_FishingState.OnTriggerExit(other);
         }
     }
+
+    private void PickUp(ScriptablePowerUp power)
+    {
+        PowerUp powerup = new PowerUp(power.stats);
+        M_AddPowerup.Invoke(powerup);
+    }
 }

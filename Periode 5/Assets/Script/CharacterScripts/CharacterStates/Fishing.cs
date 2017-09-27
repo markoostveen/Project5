@@ -104,15 +104,17 @@ public class Fishing : ICharacterStates
 
     private void CatchFish()
     {
-        m_CaughtFish.Add(m_FishInArea[m_SelectedFishIndex]);
-        m_CaughtFish[m_CaughtFish.Count - 1].BeingCatched();
+        if(m_FishInArea.Count > 0)
+        {
+            m_CaughtFish.Add(m_FishInArea[m_SelectedFishIndex]);
+            m_CaughtFish[m_CaughtFish.Count - 1].BeingCatched();
 
-        m_FishInArea.RemoveAt(m_SelectedFishIndex);
-        m_SelectedFishIndex = 0;
+            m_FishInArea.RemoveAt(m_SelectedFishIndex);
+            m_SelectedFishIndex = 0;
 
 
-        m_CaughtFish[m_CaughtFish.Count - 1].Catched();
-        
+            m_CaughtFish[m_CaughtFish.Count - 1].Catched();
+        }
     }
 
     public void ToWalking()
