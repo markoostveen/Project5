@@ -121,4 +121,15 @@ public class CharacterControl : MonoBehaviour
             m_FishingState.OnTriggerExit(other);
         }
     }
+
+    private void PickUp(ScriptablePowerUp power)
+    {
+        PowerUp powerup = new PowerUp(power.stats, new RemovePowerupDelegate(AddRemovePowerup), power.m_Image);
+        M_AddPowerup.Invoke(powerup);
+    }
+
+    private void AddRemovePowerup(PowerupStats stats)
+    {
+
+    }
 }

@@ -1,26 +1,53 @@
 ﻿using UnityEngine;
 
-[CreateAssetMenu(fileName = "NewHat", menuName = "Hat", order = 1)]
-public class PowerUp : ScriptableObject
+[System.Serializable]
+public struct PowerupStats
 {
-    //used for update
     public float m_TimeActive;
 
     public float m_AddSpeed;
     public float m_AddThrowSpeed;
     public float m_AddCatchSpeed;
+}
+public delegate void RemovePowerupDelegate(PowerupStats stats);
 
-    public float M_TimeActiveRef { get; private set; }
+[CreateAssetMenu(fileName = "NewHat", menuName = "Hat", order = 1)]
+public class ScriptablePowerUp : ScriptableObject
+{
+    //info of object is stored here
+    [SerializeField]
+    public PowerupStats stats;
 
-    public PowerUp()
+    [SerializeField]
+    public Sprite m_Image;
+
+    // make this a scriptable object for easy editing
+}
+
+public class PowerUp : ScriptableObject
+{
+    //used for update
+    private PowerupStats M_States;
+    public PowerupStats GetStats() { return M_States; }
+
+    private RemovePowerupDelegate m_RemoveCallBack;
+
+    private Sprite m_Image;
+
+    public PowerUp(PowerupStats stats, RemovePowerupDelegate callback, Sprite sprite)
     {
-        M_TimeActiveRef = m_TimeActive;
+        M_States = stats;
+        m_RemoveCallBack = callback;
+        m_Image = sprite;
     }
 
     public void Update()
     {
-        M_TimeActiveRef -= Time.deltaTime;
+        M_States.m_TimeActive -= Time.deltaTime;
+
+        if (M_States.m_TimeActive <= 0)
+            m_RemoveCallBack.Invoke(M_States);
+
         Debug.Log("updating a powerup");
     }
- // make this a scriptable object for easy editing
 }
