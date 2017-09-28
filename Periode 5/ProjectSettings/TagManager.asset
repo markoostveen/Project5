@@ -4,13 +4,8 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Scorepoint
-<<<<<<< HEAD
-  - Avoid
-  - PowerUp
-=======
->>>>>>> Fabio
   - Spawner
+  - Scorepoint
   layers:
   - Default
   - TransparentFX

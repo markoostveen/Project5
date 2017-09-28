@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class CharacterControl : PoolObject
+public class CharacterControl : MonoBehaviour
 {
     private Walking m_WalkingState;
     private Fishing m_FishingState;
