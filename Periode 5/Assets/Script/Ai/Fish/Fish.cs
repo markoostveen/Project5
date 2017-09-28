@@ -14,6 +14,12 @@ public class Fish : Base_AI , IFish{
 
     private byte m_State;
 
+    public override void Initialize(PoolObjectInfo Info)
+    {
+        transform.GetChild(0).transform.localPosition += ((Vector3.down * Random.Range(1, 10)) / 4);
+        base.Initialize(Info);
+    }
+
     public override void Activate()
     {
         base.Activate();

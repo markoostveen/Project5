@@ -32,7 +32,8 @@ public class SpawnerSelector : MonoBehaviour {
 
     private void Start()
     {
-        MakeSpawner();
+        if(M_SpawnerType != 0)
+            MakeSpawner();
     }
 
     public void MakeSpawner()

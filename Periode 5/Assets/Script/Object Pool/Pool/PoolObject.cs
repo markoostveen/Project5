@@ -10,7 +10,7 @@ public class PoolObject :  MonoBehaviour
 
     private PoolObjectInfo m_Info;
 
-    public void Initialize(PoolObjectInfo Info)
+    public virtual void Initialize(PoolObjectInfo Info)
     {
         m_Info = Info;
         gameObject.SetActive(false);
@@ -27,6 +27,7 @@ public class PoolObject :  MonoBehaviour
             m_Info.Callback.Invoke(m_Info.Pool, this, m_Info.Parrent);
         else
             Debug.LogError("Callback can't be found", transform);
+        
         gameObject.SetActive(false);
     }
 }

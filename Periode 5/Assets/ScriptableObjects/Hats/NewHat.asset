@@ -16,3 +16,4 @@ MonoBehaviour:
     m_AddSpeed: 1
     m_AddThrowSpeed: 2
     m_AddCatchSpeed: 4
+  m_Image: {fileID: 21300000, guid: 658e3cbaebcabe54fa3484bc714c9df5, type: 3}

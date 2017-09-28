@@ -33,6 +33,7 @@ public class PowerUp : ScriptableObject
     private RemovePowerupDelegate m_RemoveCallBack;
 
     private Sprite m_Image;
+    public Sprite GetSprite() { return m_Image; }
 
     public PowerUp(PowerupStats stats, RemovePowerupDelegate callback, Sprite sprite)
     {
