@@ -17,7 +17,7 @@ public class Pickup : PoolObject {
     {
         if (other.gameObject.tag == "Player")
         {
-            other.SendMessage("PickUp", m_obj, SendMessageOptions.RequireReceiver);
+            other.SendMessage("PickUp", m_obj.stats, SendMessageOptions.RequireReceiver);
             Deactivate();
         }
     }

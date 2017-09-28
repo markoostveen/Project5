@@ -37,7 +37,9 @@ public class PlayerStats : PoolObject {
             powerup.Update();
 
             if (powerup.GetStats().m_TimeActive < 0)
+            {
                 m_ScoreSystem.m_Struct.CurrentPowerups.Remove(m_ScoreSystem.m_Struct.CurrentPowerups[i]);
+            }
         }
 
 

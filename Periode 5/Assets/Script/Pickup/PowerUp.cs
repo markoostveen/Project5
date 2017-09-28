@@ -9,6 +9,7 @@ public struct PowerupStats
     public float m_AddThrowSpeed;
     public float m_AddCatchSpeed;
 }
+public delegate void RemovePowerupDelegate(PowerupStats stats);
 
 [CreateAssetMenu(fileName = "NewHat", menuName = "Hat", order = 1)]
 public class ScriptablePowerUp : ScriptableObject
@@ -27,14 +28,21 @@ public class PowerUp : ScriptableObject
 
     public PowerupStats GetStats() { return M_States; }
 
-    public PowerUp(PowerupStats stats)
+    private RemovePowerupDelegate m_RemoveCallBack;
+
+    public PowerUp(PowerupStats stats, RemovePowerupDelegate callback)
     {
         M_States = stats;
+        m_RemoveCallBack = callback;
     }
 
     public void Update()
     {
         M_States.m_TimeActive -= Time.deltaTime;
+
+        if (M_States.m_TimeActive <= 0)
+            m_RemoveCallBack.Invoke(M_States);
+
         Debug.Log("updating a powerup");
     }
 }
