@@ -122,9 +122,9 @@ public class CharacterControl : PoolObject
         }
     }
 
-    private void PickUp(PowerupStats power)
+    private void PickUp(ScriptablePowerUp power)
     {
-        PowerUp powerup = new PowerUp(power, new RemovePowerupDelegate(AddRemovePowerup));
+        PowerUp powerup = new PowerUp(power.stats, new RemovePowerupDelegate(AddRemovePowerup), power.m_Image);
         M_AddPowerup.Invoke(powerup);
     }
 

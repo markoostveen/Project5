@@ -18,6 +18,9 @@ public class ScriptablePowerUp : ScriptableObject
     [SerializeField]
     public PowerupStats stats;
 
+    [SerializeField]
+    public Sprite m_Image;
+
     // make this a scriptable object for easy editing
 }
 
@@ -25,15 +28,17 @@ public class PowerUp : ScriptableObject
 {
     //used for update
     private PowerupStats M_States;
-
     public PowerupStats GetStats() { return M_States; }
 
     private RemovePowerupDelegate m_RemoveCallBack;
 
-    public PowerUp(PowerupStats stats, RemovePowerupDelegate callback)
+    private Sprite m_Image;
+
+    public PowerUp(PowerupStats stats, RemovePowerupDelegate callback, Sprite sprite)
     {
         M_States = stats;
         m_RemoveCallBack = callback;
+        m_Image = sprite;
     }
 
     public void Update()
