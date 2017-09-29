@@ -35,7 +35,15 @@ public class PlayerScore
 
     private void AddPowerup(PowerUp Power)
     {
+        Power.m_RemovePoolCallback += RemovePowerup;
         m_Struct.CurrentPowerups.Add(Power);
+    }
+
+    public void RemovePowerup(PowerUp power)
+    {
+        m_Struct.CurrentPowerups.Remove(power);
+
+        Debug.Log("Powerup Removed");
     }
 }
 

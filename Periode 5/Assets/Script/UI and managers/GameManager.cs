@@ -1,7 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using ObjectPool;
 
 public class GameManager : MonoBehaviour {
 
@@ -36,7 +35,7 @@ public class GameManager : MonoBehaviour {
         M_Players.Add(Player.gameObject);
 
         Transform UI = GameObject.Find("UI").transform;
-        PoolObject playerstatspool = ObjectPool.Pool.Spawn(m_PlayerstatsPrefab, UI);
+        PoolObject playerstatspool = Pool.Singleton.Spawn(m_PlayerstatsPrefab, UI);
         if (playerstatspool == null)
             return;
         GameObject playerstats = playerstatspool.gameObject;
@@ -61,7 +60,7 @@ public class GameManager : MonoBehaviour {
         }
 
         PlayerStats stats = playerstats.GetComponent<PlayerStats>();
-        stats.UpdateID((byte)M_Players.Count, score, 200);
+        stats.UpdateID((byte)M_Players.Count, score, 200, new Sprite());
     }
 
 }
