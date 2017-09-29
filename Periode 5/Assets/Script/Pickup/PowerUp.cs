@@ -1,41 +1,47 @@
 ﻿using UnityEngine;
+using System;
 
-[System.Serializable]
+public delegate void RemovePowerupEffectDelegate(PowerupStats stats);
+internal delegate void RemovePowerupPoolDelegate(PowerUp powerUp);
+
+[Serializable]
 public struct PowerupStats
 {
-    public float m_TimeActive;
+    //time active
+    [SerializeField]
+    internal float m_TimeActive;
 
-    public float m_AddSpeed;
-    public float m_AddThrowSpeed;
-    public float m_AddCatchSpeed;
+    //var for other objects to use
+    [SerializeField]
+    internal float m_AddSpeed;
+    [SerializeField]
+    internal float m_AddCatchSpeed;
 }
-public delegate void RemovePowerupDelegate(PowerupStats stats);
 
 [CreateAssetMenu(fileName = "NewHat", menuName = "Hat", order = 1)]
 public class ScriptablePowerUp : ScriptableObject
 {
     //info of object is stored here
-    [SerializeField]
+    [SerializeField][Tooltip("Power Stats go in here")]
     public PowerupStats stats;
 
-    [SerializeField]
+    //image used for UI will go here
+    [SerializeField][Tooltip("image used for UI will go here")]
     public Sprite m_Image;
-
-    // make this a scriptable object for easy editing
 }
 
-public class PowerUp : ScriptableObject
+public class PowerUp
 {
     //used for update
     private PowerupStats M_States;
-    public PowerupStats GetStats() { return M_States; }
 
-    private RemovePowerupDelegate m_RemoveCallBack;
+    internal RemovePowerupEffectDelegate m_RemoveCallBack;
+    internal RemovePowerupPoolDelegate m_RemovePoolCallback;
 
     private Sprite m_Image;
     public Sprite GetSprite() { return m_Image; }
 
-    public PowerUp(PowerupStats stats, RemovePowerupDelegate callback, Sprite sprite)
+    public PowerUp(PowerupStats stats, RemovePowerupEffectDelegate callback, Sprite sprite)
     {
         M_States = stats;
         m_RemoveCallBack = callback;
@@ -47,8 +53,21 @@ public class PowerUp : ScriptableObject
         M_States.m_TimeActive -= Time.deltaTime;
 
         if (M_States.m_TimeActive <= 0)
-            m_RemoveCallBack.Invoke(M_States);
+        {
+            m_RemoveCallBack.Invoke(GetNegativeStats(M_States));
+            m_RemovePoolCallback.Invoke(this);
+            Debug.Log("PowerUp is depeted");
+        }
+    }
 
-        Debug.Log("updating a powerup");
+    private PowerupStats GetNegativeStats(PowerupStats input)
+    {
+        PowerupStats output = new PowerupStats()
+        {
+            m_AddCatchSpeed = -input.m_AddCatchSpeed,
+            m_AddSpeed = -input.m_AddSpeed
+        };
+
+        return output;
     }
 }

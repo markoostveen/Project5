@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider))]
-public class Pickup : PoolObject {
+public class Pickup : ObjectPool.PoolObject
+{
 
     [SerializeField]
-    private ScriptablePowerUp m_obj;
+    private ScriptableObject m_ScriptableObj;
 
     private void Start()
     {
@@ -17,7 +18,9 @@ public class Pickup : PoolObject {
     {
         if (other.gameObject.tag == "Player")
         {
-            other.SendMessage("PickUp", m_obj, SendMessageOptions.RequireReceiver);
+            if (m_ScriptableObj.GetType() == typeof(ScriptablePowerUp))
+                other.SendMessage("PickUp", (ScriptablePowerUp)m_ScriptableObj, SendMessageOptions.RequireReceiver);
+
             Deactivate();
         }
     }

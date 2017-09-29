@@ -2,11 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using ObjectPool;
 
 public class PlayerStats : PoolObject {
 
     [SerializeField]
     private Text m_PlayerID;
+
+    [SerializeField]
+    private Image m_PlayerImage;
 
     [SerializeField]
     private Text m_ScoreGoalText;
@@ -31,12 +35,14 @@ public class PlayerStats : PoolObject {
         base.Initialize(Info);
     }
 
-    public void UpdateID(byte input, PlayerScore ScoreSystem, int ScoreGoal)
+    public void UpdateID(byte input, PlayerScore ScoreSystem, int ScoreGoal, Sprite ProfileImage)
     {
         m_PlayerID.text = "Player: " + input;
         m_ScoreSystem = ScoreSystem;
-        m_ScoreGoalText.text = "Fish Goal " + ScoreGoal;
         m_ScoreGoal = ScoreGoal;
+        m_ScoreGoalText.text = "Fish Goal " + ScoreGoal;
+        m_PlayerImage.sprite = ProfileImage;
+
     }
 
     private void Update()
@@ -49,11 +55,7 @@ public class PlayerStats : PoolObject {
                 PowerUp powerup = m_ScoreSystem.m_Struct.CurrentPowerups[i];
                 powerup.Update();
 
-                if (powerup.GetStats().m_TimeActive < 0)
-                {
-                    m_ScoreSystem.m_Struct.CurrentPowerups.Remove(m_ScoreSystem.m_Struct.CurrentPowerups[i]);
-                }
-                else if (i < m_PowerupImages.Length)
+                if (i < m_PowerupImages.Length)
                 {
                     m_PowerupImages[i].enabled = true;
                     m_PowerupImages[i].sprite = powerup.GetSprite();
@@ -70,7 +72,10 @@ public class PlayerStats : PoolObject {
     {
         base.Deactivate();
         m_PlayerID.text = "PlayerID";
+        m_ScoreGoalText.text = "Fish Goal ";
+        m_ScoreGoal = 0;
         m_ScoreSystem = null;
+        m_PlayerImage.sprite = null;
     }
 
 }

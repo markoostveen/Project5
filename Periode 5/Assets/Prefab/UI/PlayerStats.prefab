@@ -386,6 +386,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_PlayerID: {fileID: 114623848940430268}
+  m_PlayerImage: {fileID: 114942641382424880}
   m_ScoreGoalText: {fileID: 114636065482114418}
   m_CurrentscorefieldText: {fileID: 114216502549935356}
   m_CurrentScoreSlider: {fileID: 114521042590978230}
