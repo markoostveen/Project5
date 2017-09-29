@@ -3,28 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-  tags: []
-=======
-<<<<<<< HEAD
->>>>>>> ArtistsTest
   tags:
-<<<<<<< HEAD
-=======
-  - Avoid
   - PowerUp
->>>>>>> Mark
-  - Spawner
-  - Scorepoint
-<<<<<<< HEAD
-=======
-=======
-  tags: []
->>>>>>> Mark
->>>>>>> 55e06ccbfdccc01cf3e247859b2788ffbdf7d1ce
->>>>>>> ArtistsTest
   layers:
   - Default
   - TransparentFX
@@ -34,19 +14,7 @@ TagManager:
   - UI
   - 
   - 
-<<<<<<< HEAD
-  - Fish
-=======
-<<<<<<< HEAD
   - 
-=======
-<<<<<<< HEAD
-  - Fish
-=======
-  - 
->>>>>>> Mark
->>>>>>> 55e06ccbfdccc01cf3e247859b2788ffbdf7d1ce
->>>>>>> ArtistsTest
   - 
   - 
   - 
