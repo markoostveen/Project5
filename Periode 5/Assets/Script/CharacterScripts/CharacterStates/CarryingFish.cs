@@ -5,18 +5,22 @@ public class CarryingFish : ICharacterStates
 {
     private List<IFish> m_CaughtFish;
 
+    private KeyCode[] m_KeyCodes;
+
     private CharacterControl m_CharacterControl;
 
     private float m_HorMoveSpeed;
     private float m_VerMoveSpeed;
 
 
-    public CarryingFish(CharacterControl characterController, ref float horMoveSpeed, ref float verMoveSpeed)
+    public CarryingFish(CharacterControl characterController, ref float horMoveSpeed, ref float verMoveSpeed, KeyCode[] keyCodes)
     {
+        m_KeyCodes = new KeyCode[6];
         m_CaughtFish = new List<IFish>();
         m_CharacterControl = characterController;
         m_HorMoveSpeed = horMoveSpeed;
         m_VerMoveSpeed = verMoveSpeed;
+        m_KeyCodes = keyCodes;
     }
 
     public void InitializeState()
@@ -36,8 +40,8 @@ public class CarryingFish : ICharacterStates
     {
         Debug.Log("Carrying");
 
-        m_HorMoveSpeed = m_HorMoveSpeed * (1f / m_CaughtFish.Count);
-        m_VerMoveSpeed = m_VerMoveSpeed * (1f / m_CaughtFish.Count);
+        //m_HorMoveSpeed = m_HorMoveSpeed * (1f / m_CaughtFish.Count);
+        //m_VerMoveSpeed = m_VerMoveSpeed * (1f / m_CaughtFish.Count);
 
         if (m_CaughtFish.Count <= 0)
         {

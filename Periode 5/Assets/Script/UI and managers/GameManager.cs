@@ -6,20 +6,27 @@ public class GameManager : MonoBehaviour {
 
     [SerializeField]
     private GameObject m_PlayerstatsPrefab;
+    [SerializeField]
+    private GameObject m_playerPrefab;
 
     public List<GameObject> M_Players { get; private set; }
     private List<PlayerScore> m_Scores;
-    public static GameManager Manager;
+    public static GameManager Singelton;
 
     private void Awake()
     {
-        if (Manager == null)
-            Manager = this;
+        if (Singelton == null)
+            Singelton = this;
         else
             Destroy(gameObject);
 
         M_Players = new List<GameObject>();
         m_Scores = new List<PlayerScore>();
+    }
+
+    private void Start()
+    {
+        //Pool.Singleton.Spawn(m_playerPrefab, )
     }
 
     private void Update()
@@ -44,10 +51,12 @@ public class GameManager : MonoBehaviour {
         switch(M_Players.Count){
             case 1:
                 playerstatstransform.localPosition = new Vector3(-675, 390, 0);
+                Player.ModifyControls(KeyCode.W, KeyCode.S, KeyCode.A, KeyCode.D, KeyCode.Q, KeyCode.E);
                 break;
 
             case 2:
                 playerstatstransform.localPosition = new Vector3(675, 390, 0);
+                Player.ModifyControls(KeyCode.I, KeyCode.K, KeyCode.J, KeyCode.L, KeyCode.U, KeyCode.O);
                 break;
 
             case 3:

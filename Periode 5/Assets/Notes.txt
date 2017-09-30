@@ -5,6 +5,21 @@ if fish is being catched play being catched animation
 Making score work
 
 
-Test if everything works
-score counting
-powerup countdown
+Wheel effects:
+
+1. Drop Food
+   Alle vissen gaan naar het eten.
+
+2. Fish bomb
+   Alle vissen in een area gaan dood
+
+3. 
+
+
+Particle System Artist
+
+Splash onder karakters.
+Als je een vis vangt een splash
+
+Effect als hoed gepakt word
+In het scherm welke speler hem heeft gepakt en misschien (screenshake?)
