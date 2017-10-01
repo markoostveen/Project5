@@ -26,7 +26,11 @@ public class ObjectPool : MonoBehaviour {
         if (Pool == null)
             Pool = this;
         else
+        {
             Destroy(gameObject);
+            return;
+        }
+
 
         if (m_Tags.Length == 0)
             Debug.LogWarning("No tags are associated with spawners, add them, its strongly suggested. if you do not, it will cost some performace on startup",transform);
@@ -207,15 +211,17 @@ public class ObjectPool : MonoBehaviour {
 
     private PoolObject RemoveFromPool(List<PoolObject> Poollist)
     {
-        if (Poollist.Count > 0)
+        if(Poollist != null)
         {
-            PoolObject Script = Poollist[0];
-            Poollist.Remove(Script);
-            Script.gameObject.SetActive(true);
-            Script.Activate();
-            return Script;
+            if (Poollist.Count > 0)
+            {
+                PoolObject Script = Poollist[0];
+                Poollist.Remove(Script);
+                Script.gameObject.SetActive(true);
+                Script.Activate();
+                return Script;
+            }
         }
-
         return null;
     }
 
