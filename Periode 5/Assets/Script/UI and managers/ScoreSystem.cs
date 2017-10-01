@@ -7,6 +7,7 @@ public class PlayerScore
 {
     public PlayerCurrentScore m_Struct;
     private CharacterControl m_PlayerController;
+    private List<IFish> CoughtFish;
 
     public PlayerScore(CharacterControl observer)
     {
@@ -19,15 +20,27 @@ public class PlayerScore
         {
             CurrentPowerups = new List<PowerUp>()
         };
+
+        CoughtFish = new List<IFish>();
     }
 
     private void Catch(IFish fish)
     {
+        CoughtFish.Add(fish);
         Fish actualfish = (Fish)fish;
         string Actualname = actualfish.name.Split('(')[0];
         switch (Actualname)
         {
-            case "Fish":
+            case "Fish-Green":
+                m_Struct.Score += 1;
+                break;
+            case "Fish-Orange":
+                m_Struct.Score += 1;
+                break;
+            case "Fish-Pink":
+                m_Struct.Score += 1;
+                break;
+            case "Fish-Red":
                 m_Struct.Score += 1;
                 break;
         }

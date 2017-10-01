@@ -63,195 +63,413 @@ namespace ObjectPool
 
 
         #region PoolChanges
-        #region Spawning
-        /// <summary>
-        /// Spawn object by prefab named that is already in the pool
-        /// </summary>
-        /// <param name="name"></param>
-        /// <returns></returns>
-        public PoolObject Spawn(string name)
-        {
-            List<PoolObject> Poollist = GetPool(name);
 
-            if (Poollist != null)
+            #region Spawning
+            /// <summary>
+            /// Spawn object by prefab named that is already in the pool
+            /// </summary>
+            /// <param name="name"></param>
+            /// <returns></returns>
+            public PoolObject Spawn(string name)
             {
-                if (Poollist.Count < 1)
+                List<PoolObject> Poollist = GetPool(name);
+
+                if (Poollist != null)
+                {
+                    if (Poollist.Count < 1)
+                        return null;
+                }
+                else
                     return null;
+
+                return RemoveFromPool(Poollist);
             }
-            else
-                return null;
-
-            return RemoveFromPool(Poollist);
-        }
-        /// <summary>
-        /// Spawn object by prefab named that is already in the pool and will spawn it at the spawnpoint given
-        /// </summary>
-        /// <param name="name"></param>
-        /// <returns></returns>
-        public PoolObject Spawn(string name, Vector3 SpawnPosition)
-        {
-
-            PoolObject obj = Spawn(name);
-            if (obj != null)
-                obj.transform.position = SpawnPosition;
-            return obj;
-        }
-        /// <summary>
-        /// Spawn object by prefab named that is already in the pool and will parrent it under transform given
-        /// </summary>
-        /// <param name="name"></param>
-        /// <returns></returns>
-        public PoolObject Spawn(string name, Transform Parrent)
-        {
-            PoolObject obj = Spawn(name);
-
-            if (obj != null)
-                obj.transform.SetParent(Parrent);
-
-            return obj;
-        }
-        /// <summary>
-        /// Spawn object with the given prefab, if no object avalible pool will make more instances
-        /// </summary>
-        /// <param name="name"></param>
-        /// <returns></returns>
-        public PoolObject Spawn(GameObject prefab)
-        {
-            if (prefab == null)
-                return null;
-
-            PoolObject Poollist = Spawn(GetPool(prefab.name));
-
-            if (Poollist == null)
+            /// <summary>
+            /// Spawn object by prefab named that is already in the pool
+            /// </summary>
+            /// <param name="name"></param>
+            /// <returns></returns>
+            public PoolObject Spawn(string name, Quaternion rotation)
             {
-                Debug.LogWarning("Not enough " + prefab.name + " in objectpool, " + 2 + " new " + prefab.name + " has been instantiated.");
-                Spawn(LoadExtraItems(new Poolobj() { m_Amount = 2, m_Prefab = prefab }));
+                PoolObject obj = Spawn(name);
+
+                if(obj != null)
+                {
+                    obj.transform.rotation = rotation;
+                }
+
+                return obj;
+            }
+            /// <summary>
+            /// Spawn object by prefab named that is already in the pool and will spawn it at the spawnpoint given
+            /// </summary>
+            /// <param name="name"></param>
+            /// <returns></returns>
+            public PoolObject Spawn(string name, Vector3 SpawnPosition)
+            {
+
+                PoolObject obj = Spawn(name);
+                if (obj != null)
+                    obj.transform.position = SpawnPosition;
+                return obj;
+            }
+            /// <summary>
+            /// Spawn object by prefab named that is already in the pool and will spawn it at the spawnpoint given
+            /// </summary>
+            /// <param name="name"></param>
+            /// <returns></returns>
+            public PoolObject Spawn(string name, Vector3 SpawnPosition, Quaternion Rotation)
+            {
+
+                PoolObject obj = Spawn(name);
+                if (obj != null)
+                {
+                    obj.transform.position = SpawnPosition;
+                    obj.transform.rotation = Rotation;
+                }
+
+                return obj;
+            }
+            /// <summary>
+            /// Spawn object by prefab named that is already in the pool and will parrent it under transform given
+            /// </summary>
+            /// <param name="name"></param>
+            /// <returns></returns>
+            public PoolObject Spawn(string name, Transform Parrent)
+            {
+                PoolObject obj = Spawn(name);
+
+                if (obj != null)
+                    obj.transform.SetParent(Parrent);
+
+                return obj;
+            }
+            /// <summary>
+            /// Spawn object by prefab named that is already in the pool and will parrent it under transform given
+            /// </summary>
+            /// <param name="name"></param>
+            /// <returns></returns>
+            public PoolObject Spawn(string name, Transform Parrent, Quaternion Rotation)
+            {
+                PoolObject obj = Spawn(name);
+
+                if (obj != null)
+                {
+                    obj.transform.SetParent(Parrent);
+                    obj.transform.rotation = Rotation;
+                }
+
+                return obj;
+            }
+            /// <summary>
+            /// Spawn object with the given prefab, if no object avalible pool will make more instances
+            /// </summary>
+            /// <param name="name"></param>
+            /// <returns></returns>
+            public PoolObject Spawn(GameObject prefab)
+            {
+                if (prefab == null)
+                    return null;
+
+                PoolObject Poollist = Spawn(GetPool(prefab.name));
+
+                if (Poollist == null)
+                {
+                    Debug.LogWarning("Not enough " + prefab.name + " in objectpool, " + 2 + " new " + prefab.name + " has been instantiated.");
+                    Spawn(LoadExtraItems(new Poolobj() { m_Amount = 2, m_Prefab = prefab }));
+                }
+
+                return RemoveFromPool(GetPool(prefab.name));
+            }
+            /// <summary>
+            /// Spawn object with the given prefab, if no object avalible pool will make more instances
+            /// </summary>
+            /// <param name="name"></param>
+            /// <returns></returns>
+            public PoolObject Spawn(GameObject prefab, Quaternion rotation)
+            {
+                PoolObject obj = Spawn(prefab);
+
+                if (obj != null)
+                    obj.transform.rotation = rotation;
+
+                return obj;
+            }
+            /// <summary>
+            /// Spawn object with the given prefab, if no object avalible pool will make more instances, object will spawn at given position
+            /// </summary>
+            /// <param name="name"></param>
+            /// <returns></returns>
+            public PoolObject Spawn(GameObject prefab, Vector3 SpawnPosition)
+            {
+
+                PoolObject obj = Spawn(prefab);
+
+                if (obj != null)
+                    obj.transform.position = SpawnPosition;
+
+                return obj;
+            }
+            /// <summary>
+            /// Spawn object with the given prefab, if no object avalible pool will make more instances, object will spawn at given position
+            /// </summary>
+            /// <param name="name"></param>
+            /// <returns></returns>
+            public PoolObject Spawn(GameObject prefab, Vector3 SpawnPosition, Quaternion rotation)
+            {
+
+                PoolObject obj = Spawn(prefab);
+
+                if (obj != null)
+                {
+                    obj.transform.position = SpawnPosition;
+                    obj.transform.rotation = rotation;
+                }
+
+
+                return obj;
+            }
+            /// <summary>
+            /// Spawn object with the given prefab, if no object avalible pool will make more instances, object will be parrented under transform given
+            /// </summary>
+            /// <param name="name"></param>
+            /// <returns></returns>
+            public PoolObject Spawn(GameObject prefab, Transform Parrent)
+            {
+                PoolObject obj = Spawn(prefab);
+
+                if (obj != null)
+                    obj.transform.SetParent(Parrent);
+
+                return obj;
+            }
+            /// <summary>
+            /// Spawn object with the given prefab, if no object avalible pool will make more instances, object will be parrented under transform given
+            /// </summary>
+            /// <param name="name"></param>
+            /// <returns></returns>
+            public PoolObject Spawn(GameObject prefab, Transform Parrent, Quaternion rotation)
+            {
+                PoolObject obj = Spawn(prefab);
+
+                if (obj != null)
+                {
+                    obj.transform.SetParent(Parrent);
+                    obj.transform.rotation = rotation;
+                }
+
+
+                return obj;
+            }
+            /// <summary>
+            /// Spawn object by giving inputing desired pool to spawn object from
+            /// </summary>
+            /// <param name="name"></param>
+            /// <returns></returns>
+            public PoolObject Spawn(List<PoolObject> objectpool)
+            {
+                return RemoveFromPool(objectpool);
+            }
+            /// <summary>
+            /// Spawn object by giving inputing desired pool to spawn object from
+            /// </summary>
+            /// <param name="name"></param>
+            /// <returns></returns>
+            public PoolObject Spawn(List<PoolObject> objectpool, Quaternion rotation)
+            {
+                PoolObject obj = Spawn(objectpool);
+
+                if (obj != null)
+                    obj.transform.rotation = rotation;
+
+                return obj;
+            }
+            /// <summary>
+            /// Spawn instance from a desired pool, if None avalible then spawn in new ones
+            /// </summary>
+            /// <param name="objectpool"></param>
+            /// <param name="prefab"></param>
+            /// <returns></returns>
+            public PoolObject Spawn(List<PoolObject> objectpool, GameObject prefab)
+            {
+
+                PoolObject obj = Spawn(objectpool);
+
+                if (obj == null)
+                    Spawn(prefab);
+
+                return obj;
+            }
+            /// <summary>
+            /// Spawn instance from a desired pool, if None avalible then spawn in new ones
+            /// </summary>
+            /// <param name="objectpool"></param>
+            /// <param name="prefab"></param>
+            /// <returns></returns>
+            public PoolObject Spawn(List<PoolObject> objectpool, GameObject prefab, Quaternion rotation)
+            {
+
+                PoolObject obj = Spawn(objectpool);
+
+                if (obj == null)
+                    Spawn(prefab);
+
+                if (obj != null)
+                    obj.transform.rotation = rotation;
+
+                return obj;
+            }
+            /// <summary>
+            /// Spawn object by given a pool and spawn at spawnpoint location
+            /// </summary>
+            /// <param name="objectpool"></param>
+            /// <param name="SpawnPosition"></param>
+            /// <returns></returns>
+            public PoolObject Spawn(List<PoolObject> objectpool, Vector3 SpawnPosition)
+            {
+                PoolObject obj = Spawn(objectpool);
+
+                if(obj != null)
+                    obj.transform.position = SpawnPosition;
+
+                return obj;
+            }
+            /// <summary>
+            /// Spawn object by given a pool and spawn at spawnpoint location
+            /// </summary>
+            /// <param name="objectpool"></param>
+            /// <param name="SpawnPosition"></param>
+            /// <returns></returns>
+            public PoolObject Spawn(List<PoolObject> objectpool, Vector3 SpawnPosition, Quaternion rotation)
+            {
+                PoolObject obj = Spawn(objectpool);
+
+                if (obj != null)
+                {
+                    obj.transform.position = SpawnPosition;
+                    obj.transform.rotation = rotation;
+                }
+
+
+                return obj;
+            }
+            /// <summary>
+            /// Spawn Object and parrent it to given transform, will return NULL if no object are avalible in the pool
+            /// </summary>
+            /// <param name="objectpool"></param>
+            /// <param name="Parrent"></param>
+            /// <returns></returns>
+            public PoolObject Spawn(List<PoolObject> objectpool, Transform Parrent)
+            {
+                PoolObject obj = Spawn(objectpool);
+
+                if (obj != null)
+                    obj.transform.SetParent(Parrent);
+
+                return obj;
+            }
+            /// <summary>
+            /// Spawn Object and parrent it to given transform, will return NULL if no object are avalible in the pool
+            /// </summary>
+            /// <param name="objectpool"></param>
+            /// <param name="Parrent"></param>
+            /// <returns></returns>
+            public PoolObject Spawn(List<PoolObject> objectpool, Transform Parrent, Quaternion rotation)
+            {
+                PoolObject obj = Spawn(objectpool);
+
+                if (obj != null)
+                {
+                    obj.transform.SetParent(Parrent);
+                    obj.transform.rotation = rotation;
+                }
+
+                return obj;
+            }
+            /// <summary>
+            /// Spawn using a pool, if no object avalible then spawn in new ones, object will spawn at given spawnpoint. will return NULL if no object are avalible in the pool
+            /// </summary>
+            /// <param name="objectpool"></param>
+            /// <param name="prefab"></param>
+            /// <param name="SpawnPosition"></param>
+            /// <returns></returns>
+            public PoolObject Spawn(List<PoolObject> objectpool, GameObject prefab , Vector3 SpawnPosition)
+            {
+                PoolObject obj = Spawn(objectpool);
+
+                if (obj == null)
+                    Spawn(prefab);
+
+                if (obj != null)
+                    obj.transform.position = SpawnPosition;
+                return obj;
+            }
+            /// <summary>
+            /// Spawn using a pool, if no object avalible then spawn in new ones, object will spawn at given spawnpoint. will return NULL if no object are avalible in the pool
+            /// </summary>
+            /// <param name="objectpool"></param>
+            /// <param name="prefab"></param>
+            /// <param name="SpawnPosition"></param>
+            /// <returns></returns>
+            public PoolObject Spawn(List<PoolObject> objectpool, GameObject prefab, Vector3 SpawnPosition, Quaternion rotation)
+            {
+                PoolObject obj = Spawn(objectpool);
+
+                if (obj == null)
+                    Spawn(prefab);
+
+                if (obj != null)
+                {
+                    obj.transform.position = SpawnPosition;
+                    obj.transform.rotation = rotation;
+                }
+
+                return obj;
+            }
+            /// <summary>
+            /// Spawn using a pool, if no object avalible then spawn in new ones, object will be parrented at given transform
+            /// </summary>
+            /// <param name="objectpool"></param>
+            /// <param name="prefab"></param>
+            /// <param name="Parrent"></param>
+            /// <returns></returns>
+            public PoolObject Spawn(List<PoolObject> objectpool, GameObject prefab, Transform Parrent)
+            {
+                PoolObject obj = Spawn(objectpool);
+
+                if (obj == null)
+                    Spawn(prefab);
+
+                if (obj != null)
+                    obj.transform.SetParent(Parrent);
+
+                return obj;
+            }
+            /// <summary>
+            /// Spawn using a pool, if no object avalible then spawn in new ones, object will be parrented at given transform
+            /// </summary>
+            /// <param name="objectpool"></param>
+            /// <param name="prefab"></param>
+            /// <param name="Parrent"></param>
+            /// <returns></returns>
+            public PoolObject Spawn(List<PoolObject> objectpool, GameObject prefab, Transform Parrent, Quaternion rotation)
+            {
+                PoolObject obj = Spawn(objectpool);
+
+                if (obj == null)
+                    Spawn(prefab);
+
+                if (obj != null)
+                {
+                    obj.transform.SetParent(Parrent);
+                    obj.transform.rotation = rotation;
+                }
+
+
+                return obj;
             }
 
-            return RemoveFromPool(GetPool(prefab.name));
-        }
-        /// <summary>
-        /// Spawn object with the given prefab, if no object avalible pool will make more instances, object will spawn at given position
-        /// </summary>
-        /// <param name="name"></param>
-        /// <returns></returns>
-        public PoolObject Spawn(GameObject prefab, Vector3 SpawnPosition)
-        {
-
-            PoolObject obj = Spawn(prefab);
-
-            if (obj != null)
-                obj.transform.position = SpawnPosition;
-
-            return obj;
-        }
-        /// <summary>
-        /// Spawn object with the given prefab, if no object avalible pool will make more instances, object will be parrented under transform given
-        /// </summary>
-        /// <param name="name"></param>
-        /// <returns></returns>
-        public PoolObject Spawn(GameObject prefab, Transform Parrent)
-        {
-            PoolObject obj = Spawn(prefab);
-
-            if (obj != null)
-                obj.transform.SetParent(Parrent);
-
-            return obj;
-        }
-        /// <summary>
-        /// Spawn object by giving inputing desired pool to spawn object from
-        /// </summary>
-        /// <param name="name"></param>
-        /// <returns></returns>
-        public PoolObject Spawn(List<PoolObject> objectpool)
-        {
-            return RemoveFromPool(objectpool);
-        }
-        /// <summary>
-        /// Spawn instance from a desired pool, if None avalible then spawn in new ones
-        /// </summary>
-        /// <param name="objectpool"></param>
-        /// <param name="prefab"></param>
-        /// <returns></returns>
-        public PoolObject Spawn(List<PoolObject> objectpool, GameObject prefab)
-        {
-
-            PoolObject obj = Spawn(objectpool);
-
-            if (obj == null)
-                Spawn(prefab);
-
-            return obj;
-        }
-        /// <summary>
-        /// Spawn object by given a pool and spawn at spawnpoint location
-        /// </summary>
-        /// <param name="objectpool"></param>
-        /// <param name="SpawnPosition"></param>
-        /// <returns></returns>
-        public PoolObject Spawn(List<PoolObject> objectpool, Vector3 SpawnPosition)
-        {
-            PoolObject obj = Spawn(objectpool);
-
-            if(obj != null)
-                obj.transform.position = SpawnPosition;
-
-            return obj;
-        }
-        /// <summary>
-        /// Spawn Object and parrent it to given transform, will return NULL if no object are avalible in the pool
-        /// </summary>
-        /// <param name="objectpool"></param>
-        /// <param name="Parrent"></param>
-        /// <returns></returns>
-        public PoolObject Spawn(List<PoolObject> objectpool, Transform Parrent)
-        {
-            PoolObject obj = Spawn(objectpool);
-
-            if (obj != null)
-                obj.transform.SetParent(Parrent);
-
-            return obj;
-        }
-        /// <summary>
-        /// Spawn using a pool, if no object avalible then spawn in new ones, object will spawn at given spawnpoint. will return NULL if no object are avalible in the pool
-        /// </summary>
-        /// <param name="objectpool"></param>
-        /// <param name="prefab"></param>
-        /// <param name="SpawnPosition"></param>
-        /// <returns></returns>
-        public PoolObject Spawn(List<PoolObject> objectpool, GameObject prefab , Vector3 SpawnPosition)
-        {
-            PoolObject obj = Spawn(objectpool);
-
-            if (obj == null)
-                Spawn(prefab);
-
-            if (obj != null)
-                obj.transform.position = SpawnPosition;
-            return obj;
-        }
-        /// <summary>
-        /// Spawn using a pool, if no object avalible then spawn in new ones, object will be parrented at given transform
-        /// </summary>
-        /// <param name="objectpool"></param>
-        /// <param name="prefab"></param>
-        /// <param name="Parrent"></param>
-        /// <returns></returns>
-        public PoolObject Spawn(List<PoolObject> objectpool, GameObject prefab, Transform Parrent)
-        {
-            PoolObject obj = Spawn(objectpool);
-
-            if (obj == null)
-                Spawn(prefab);
-
-            if (obj != null)
-                obj.transform.SetParent(Parrent);
-
-            return obj;
-        }
-        #endregion
+            #endregion
 
         /// <summary>
         /// PoolObject callback when object gets deactivated they will call this function to place them back in their pool

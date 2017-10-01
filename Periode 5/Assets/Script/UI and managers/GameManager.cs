@@ -18,7 +18,10 @@ public class GameManager : MonoBehaviour {
         if (Singelton == null)
             Singelton = this;
         else
+        {
             Destroy(gameObject);
+            return;
+        }
 
         M_Players = new List<GameObject>();
         m_Scores = new List<PlayerScore>();
