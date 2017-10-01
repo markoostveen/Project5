@@ -190,6 +190,7 @@ GameObject:
   - component: {fileID: 51821371}
   - component: {fileID: 51821370}
   - component: {fileID: 51821369}
+  - component: {fileID: 51821373}
   m_Layer: 0
   m_Name: Plane (4)
   m_TagString: Untagged
@@ -263,6 +264,18 @@ Transform:
   m_Father: {fileID: 949242326}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 180, y: 89.99999, z: 180}
+--- !u!65 &51821373
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 51821368}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 10, y: 1.4830322, z: 10.413362}
+  m_Center: {x: 0.00024436423, y: -0.7415161, z: -0.20668058}
 --- !u!1 &149095545
 GameObject:
   m_ObjectHideFlags: 0
@@ -733,6 +746,103 @@ Transform:
   m_Father: {fileID: 949242326}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &542295808
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 542295809}
+  - component: {fileID: 542295813}
+  - component: {fileID: 542295812}
+  - component: {fileID: 542295811}
+  - component: {fileID: 542295810}
+  m_Layer: 0
+  m_Name: Plane (6)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &542295809
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 542295808}
+  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: -3.0289917, y: -4.6724854, z: 3.36}
+  m_LocalScale: {x: 2.1387799, y: 1.0000005, z: 0.25571012}
+  m_Children: []
+  m_Father: {fileID: 949242326}
+  m_RootOrder: 20
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!65 &542295810
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 542295808}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 10, y: 2.3969724, z: 10.413362}
+  m_Center: {x: 0.00024435125, y: -0.9495047, z: -0.20668077}
+--- !u!23 &542295811
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 542295808}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_Materials:
+  - {fileID: 2100000, guid: 9b24fd92dcfbc9c43afabfd3a63f0245, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 1
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!64 &542295812
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 542295808}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 0
+  m_InflateMesh: 0
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!33 &542295813
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 542295808}
+  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &673835901
 GameObject:
   m_ObjectHideFlags: 0
@@ -1004,6 +1114,7 @@ Transform:
   - {fileID: 312687898}
   - {fileID: 2041491384}
   - {fileID: 18390460}
+  - {fileID: 542295809}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1029,7 +1140,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 976721351}
-  m_LocalRotation: {x: -0.02410833, y: -0.9996096, z: -0.011932623, w: 0.0075497036}
+  m_LocalRotation: {x: -0.024108332, y: -0.99960965, z: -0.011932624, w: 0.007549704}
   m_LocalPosition: {x: 5.61, y: -1.54, z: -0.39}
   m_LocalScale: {x: 0.92343146, y: 0.9234314, z: 0.9234314}
   m_Children: []
@@ -1087,9 +1198,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1091336338}
   - component: {fileID: 1091336339}
+  - component: {fileID: 1091336340}
   m_Layer: 0
   m_Name: Fish Pool Groen
-  m_TagString: Untagged
+  m_TagString: Scorepoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1149,6 +1261,18 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
+--- !u!65 &1091336340
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1091336337}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.74, y: 4.8800006, z: 0.20000003}
+  m_Center: {x: 0, y: 0.0009765625, z: -0.00030517578}
 --- !u!1 &1146790690
 GameObject:
   m_ObjectHideFlags: 0
@@ -1242,9 +1366,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1246547549}
   - component: {fileID: 1246547550}
+  - component: {fileID: 1246547551}
   m_Layer: 0
   m_Name: Fish Pool Rood
-  m_TagString: Untagged
+  m_TagString: Scorepoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1304,6 +1429,18 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
+--- !u!65 &1246547551
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1246547548}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.74, y: 4.8800006, z: 0.20000003}
+  m_Center: {x: 0, y: 0, z: -0.000061035156}
 --- !u!1 &1297327515
 GameObject:
   m_ObjectHideFlags: 0
@@ -1313,9 +1450,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1297327516}
   - component: {fileID: 1297327517}
+  - component: {fileID: 1297327518}
   m_Layer: 0
   m_Name: Fish Pool Blauw
-  m_TagString: Untagged
+  m_TagString: Scorepoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1375,6 +1513,18 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
+--- !u!65 &1297327518
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1297327515}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.74, y: 4.8800006, z: 0.20000003}
+  m_Center: {x: 0, y: 0, z: -0.00018310547}
 --- !u!1 &1333956866
 GameObject:
   m_ObjectHideFlags: 0
@@ -1386,6 +1536,7 @@ GameObject:
   - component: {fileID: 1333956869}
   - component: {fileID: 1333956868}
   - component: {fileID: 1333956867}
+  - component: {fileID: 1333956871}
   m_Layer: 0
   m_Name: Plane
   m_TagString: Untagged
@@ -1459,6 +1610,18 @@ Transform:
   m_Father: {fileID: 949242326}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!65 &1333956871
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1333956866}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 10, y: 1.7320141, z: 10.413362}
+  m_Center: {x: 0.00024435172, y: -0.61702526, z: -0.20668072}
 --- !u!1 &1341962216
 GameObject:
   m_ObjectHideFlags: 0
@@ -1541,6 +1704,7 @@ GameObject:
   - component: {fileID: 1367182371}
   - component: {fileID: 1367182370}
   - component: {fileID: 1367182369}
+  - component: {fileID: 1367182373}
   m_Layer: 0
   m_Name: Plane (3)
   m_TagString: Untagged
@@ -1614,6 +1778,18 @@ Transform:
   m_Father: {fileID: 949242326}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 180, y: 89.99999, z: 180}
+--- !u!65 &1367182373
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1367182368}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 10, y: 1.4830322, z: 10.413362}
+  m_Center: {x: 0.00024436423, y: -0.7415161, z: -0.20668058}
 --- !u!1 &1511836576
 GameObject:
   m_ObjectHideFlags: 0
@@ -1623,9 +1799,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1511836577}
   - component: {fileID: 1511836578}
+  - component: {fileID: 1511836579}
   m_Layer: 0
   m_Name: Fish Pool Geel
-  m_TagString: Untagged
+  m_TagString: Scorepoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1685,6 +1862,18 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
+--- !u!65 &1511836579
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1511836576}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.74, y: 4.8800006, z: 0.20000003}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1830190376
 GameObject:
   m_ObjectHideFlags: 0
@@ -1875,6 +2064,20 @@ Light:
   m_Lightmapping: 2
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
+  m_FalloffTable:
+    m_Table[0]: 0
+    m_Table[1]: 0
+    m_Table[2]: 0
+    m_Table[3]: 0
+    m_Table[4]: 0
+    m_Table[5]: 0
+    m_Table[6]: 0
+    m_Table[7]: 0
+    m_Table[8]: 0
+    m_Table[9]: 0
+    m_Table[10]: 0
+    m_Table[11]: 0
+    m_Table[12]: 0
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
@@ -2189,6 +2392,20 @@ Light:
   m_Lightmapping: 4
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
+  m_FalloffTable:
+    m_Table[0]: 0
+    m_Table[1]: 0
+    m_Table[2]: 0
+    m_Table[3]: 0
+    m_Table[4]: 0
+    m_Table[5]: 0
+    m_Table[6]: 0
+    m_Table[7]: 0
+    m_Table[8]: 0
+    m_Table[9]: 0
+    m_Table[10]: 0
+    m_Table[11]: 0
+    m_Table[12]: 0
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
   m_ShadowRadius: 0

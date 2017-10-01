@@ -7,6 +7,8 @@ public class Fishing : ICharacterStates
 {
     private IFish m_CurrentSelectedFish;
 
+    private KeyCode[] m_KeyCodes;
+
     private List<IFish> m_FishInArea;
     private List<IFish> m_CaughtFish;
 
@@ -17,11 +19,13 @@ public class Fishing : ICharacterStates
 
     public Action<IFish> m_Catched;
 
-    public Fishing(CharacterControl characterController)
+    public Fishing(CharacterControl characterController, KeyCode[] keyCodes)
     {
+        m_KeyCodes = new KeyCode[6];
         m_CharacterControl = characterController;
         m_FishInArea = new List<IFish>();
         m_CaughtFish = new List<IFish>();
+        m_KeyCodes = keyCodes;
     }
 
     public void InitializeState()
@@ -42,12 +46,12 @@ public class Fishing : ICharacterStates
 
         if (m_CurrentSelectedFish != null)
         {
-            if (Input.GetKeyDown(KeyCode.W))
+            if (Input.GetKeyDown(m_KeyCodes[0]))
             {
                 Debug.Log("Catching Fish");
 
                 m_CurrentSelectedFish.BeingCatched();
-                m_CatchMeter += 100;
+                m_CatchMeter += 20;
 
 
                 if (m_CatchMeter >= 100)
@@ -58,7 +62,7 @@ public class Fishing : ICharacterStates
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(m_KeyCodes[4]))
         {
             if (m_CaughtFish.Count >= 1)
             {
@@ -73,7 +77,7 @@ public class Fishing : ICharacterStates
 
     private void SwitchSelectedFish()
     {
-        if (Input.GetKey(KeyCode.A))
+        if (Input.GetKey(m_KeyCodes[2]))
         {
             if (m_SelectedFishIndex == 0)
             {
@@ -87,7 +91,7 @@ public class Fishing : ICharacterStates
             m_CatchMeter = 0;
         }
 
-        if (Input.GetKey(KeyCode.D))
+        if (Input.GetKey(m_KeyCodes[3]))
         {
             if (m_SelectedFishIndex == m_FishInArea.Count)
             {

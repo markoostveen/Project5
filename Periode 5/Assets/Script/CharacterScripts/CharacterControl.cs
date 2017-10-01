@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using ObjectPool;
 
-public class CharacterControl : MonoBehaviour
+public class CharacterControl : PoolObject
 {
     private Walking m_WalkingState;
     private Fishing m_FishingState;
@@ -20,23 +21,23 @@ public class CharacterControl : MonoBehaviour
     public Action<IFish> M_Catched { get; set; }
     public Action<PowerUp> M_AddPowerup { get; set; }
 
-    public CharacterControl(KeyCode upKey, KeyCode downKey, KeyCode leftKey, KeyCode rightKey, KeyCode toFishingKey)
+    public void ModifyControls(KeyCode upKey, KeyCode downKey, KeyCode leftKey, KeyCode rightKey, KeyCode toFishingKey, KeyCode attackKey)
     {
-        m_KeyCodes = new KeyCode[4];
-
+        m_KeyCodes = new KeyCode[6];
         m_KeyCodes[0] = upKey;
         m_KeyCodes[1] = downKey;
         m_KeyCodes[2] = leftKey;
         m_KeyCodes[3] = rightKey;
         m_KeyCodes[4] = toFishingKey;
+        m_KeyCodes[5] = attackKey;
     }
 
 	void Start ()
     {
         SetMoveSpeed();
-        m_WalkingState = new Walking(this, ref m_HorMoveSpeed, ref m_VerMoveSpeed);
-        m_FishingState = new Fishing(this);
-        m_CarryingFishState = new CarryingFish(this, ref m_HorMoveSpeed, ref m_VerMoveSpeed);
+        m_WalkingState = new Walking(this, ref m_HorMoveSpeed, ref m_VerMoveSpeed, m_KeyCodes);
+        m_FishingState = new Fishing(this, m_KeyCodes);
+        m_CarryingFishState = new CarryingFish(this, ref m_HorMoveSpeed, ref m_VerMoveSpeed, m_KeyCodes);
         m_CurrentState = m_WalkingState;
         GameObject.Find("GameManager").GetComponent<GameManager>().RegisterPlayer(this);
     }
@@ -95,7 +96,7 @@ public class CharacterControl : MonoBehaviour
 
     public void OnTriggerStay(Collider other)
     {
-        
+        m_CurrentState.OnTriggerStay(other);
     }
 
     public void OnTriggerEnter(Collider other)
@@ -124,12 +125,14 @@ public class CharacterControl : MonoBehaviour
 
     private void PickUp(ScriptablePowerUp power)
     {
-        PowerUp powerup = new PowerUp(power.stats, new RemovePowerupDelegate(AddRemovePowerup), power.m_Image);
+        PowerUp powerup = new PowerUp(power.stats, new RemovePowerupEffectDelegate(AddRemovePowerup), power.m_Image);
+
         M_AddPowerup.Invoke(powerup);
     }
 
     private void AddRemovePowerup(PowerupStats stats)
     {
-
+        m_HorMoveSpeed *= stats.m_AddSpeed;
+        m_VerMoveSpeed *= stats.m_AddSpeed;
     }
 }
