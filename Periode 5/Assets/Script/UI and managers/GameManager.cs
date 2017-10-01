@@ -27,11 +27,6 @@ public class GameManager : MonoBehaviour {
         m_Scores = new List<PlayerScore>();
     }
 
-    private void Start()
-    {
-        //Pool.Singleton.Spawn(m_playerPrefab, )
-    }
-
     private void Update()
     {
 

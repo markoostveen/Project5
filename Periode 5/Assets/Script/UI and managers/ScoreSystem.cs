@@ -29,21 +29,39 @@ public class PlayerScore
         CoughtFish.Add(fish);
         Fish actualfish = (Fish)fish;
         string Actualname = actualfish.name.Split('(')[0];
-        switch (Actualname)
+
+        //switch (Actualname)
+        //{
+        //    case "Fish-Green":
+        //        m_Struct.Score += 1;
+        //        break;
+        //    case "Fish-Orange":
+        //        m_Struct.Score += 1;
+        //        break;
+        //    case "Fish-Pink":
+        //        m_Struct.Score += 1;
+        //        break;
+        //    case "Fish-Red":
+        //        m_Struct.Score += 1;
+        //        break;
+        //}
+
+        if (CheckScore(Actualname, 4))
+            m_Struct.Score += 1;
+    }
+
+    private bool CheckScore(string input_name, byte requirement)
+    {
+        for (int i = 0; i < CoughtFish.Count; i++)
         {
-            case "Fish-Green":
-                m_Struct.Score += 1;
-                break;
-            case "Fish-Orange":
-                m_Struct.Score += 1;
-                break;
-            case "Fish-Pink":
-                m_Struct.Score += 1;
-                break;
-            case "Fish-Red":
-                m_Struct.Score += 1;
-                break;
+            if (CoughtFish[i].M_Name == input_name)
+                requirement--;
         }
+
+        if (requirement <= 0)
+            return true;
+
+        return false;
     }
 
     private void AddPowerup(PowerUp Power)

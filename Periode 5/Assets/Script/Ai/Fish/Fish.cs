@@ -15,10 +15,13 @@ public class Fish : Base_AI , IFish{
 
     private byte m_State;
 
+    public string M_Name { get; set; }
+
     public override void Initialize(PoolObjectInfo Info)
     {
         transform.GetChild(0).transform.localPosition += ((Vector3.down * Random.Range(1, 10)) / 4);
         base.Initialize(Info);
+        M_Name = name.Split('(')[0];
     }
 
     public override void Activate()
