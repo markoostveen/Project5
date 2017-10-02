@@ -42,7 +42,7 @@ public class CharacterControl : PoolObject
 
     }
 
-	public override void Initialize(PoolObjectInfo Info)
+    internal override void Initialize(PoolObjectInfo Info)
     {
         SetMoveSpeed();
         m_WalkingState = new Walking(this, ref m_HorMoveSpeed, ref m_VerMoveSpeed);
