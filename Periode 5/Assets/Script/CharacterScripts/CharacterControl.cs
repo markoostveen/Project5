@@ -10,6 +10,8 @@ public class CharacterControl : PoolObject
     private Fishing m_FishingState;
     private CarryingFish m_CarryingFishState;
     private ICharacterStates m_CurrentState;
+    [SerializeField]
+    private GameObject m_SelectedSprite;
 
     private KeyCode[] m_KeyCodes;
 
@@ -44,9 +46,12 @@ public class CharacterControl : PoolObject
     {
         SetMoveSpeed();
         m_WalkingState = new Walking(this, ref m_HorMoveSpeed, ref m_VerMoveSpeed);
-        m_FishingState = new Fishing(this);
+        m_FishingState = new Fishing(this, ref m_SelectedSprite);
         m_CarryingFishState = new CarryingFish(this, ref m_HorMoveSpeed, ref m_VerMoveSpeed);
         m_CurrentState = m_WalkingState;
+        m_SelectedSprite = Instantiate<GameObject>(m_SelectedSprite);
+        m_SelectedSprite.SetActive(false);
+        
         GameManager.Singelton.RegisterPlayer(this);
         base.Initialize(Info);
     }
@@ -81,6 +86,7 @@ public class CharacterControl : PoolObject
     {
         m_CurrentState = m_WalkingState;
         m_WalkingState.InitializeState();
+        m_SelectedSprite.SetActive(false);
     }
 
     public void SwitchToFishingState()
@@ -88,6 +94,7 @@ public class CharacterControl : PoolObject
         m_CurrentState = m_FishingState;
         m_FishingState.InitializeState();
         m_FishingState.SetCurrentSelecetedFish();
+        m_SelectedSprite.SetActive(true);
     }
 
     public void SwitchToCarryingState(List<IFish> caughtFish)
@@ -95,6 +102,7 @@ public class CharacterControl : PoolObject
         m_CurrentState = m_CarryingFishState;
         m_CarryingFishState.InitializeState();
         m_CarryingFishState.GetCaughtFish(caughtFish);
+        m_SelectedSprite.SetActive(false);
     }
 
     public void OnTriggerStay(Collider other)
