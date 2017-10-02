@@ -19,7 +19,7 @@ public struct PowerupStats
 }
 
 [CreateAssetMenu(fileName = "NewHat", menuName = "Hat", order = 1)]
-public class ScriptablePowerUp : ScriptableObject
+class ScriptablePowerUp : ScriptableObject
 {
     //info of object is stored here
     [SerializeField][Tooltip("Power Stats go in here")]

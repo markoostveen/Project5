@@ -76,7 +76,7 @@ namespace ObjectPool
 
                 if (Poollist != null)
                 {
-                    if (Poollist.Count < 1)
+                    if (Poollist.Count == 0)
                         return null;
                 }
                 else
@@ -176,7 +176,7 @@ namespace ObjectPool
                 if (obj == null)
                 {
                     Debug.LogWarning("Not enough " + prefab.name + " in objectpool, " + 2 + " new " + prefab.name + " has been instantiated.");
-                    obj = RemoveFromPool(LoadExtraItems(new Poolobj() { m_Amount = 1, m_Prefab = prefab }));
+                    obj = RemoveFromPool(LoadExtraItems(new Poolobj() { m_Amount = 2, m_Prefab = prefab }));
                 }
 
                 return obj;
@@ -494,11 +494,11 @@ namespace ObjectPool
             {
                 if (Poollist.Count > 0)
                 {
-                    PoolObject Script = Poollist[0];
-                    Poollist.Remove(Script);
-                    Script.gameObject.SetActive(true);
-                    Script.Activate();
-                    return Script;
+                    PoolObject poolobject = Poollist[0];
+                    Poollist.Remove(poolobject);
+                    poolobject.gameObject.SetActive(true);
+                    poolobject.Activate();
+                    return poolobject;
                 }
             }
             return null;

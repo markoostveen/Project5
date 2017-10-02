@@ -75,24 +75,24 @@ public class GameManager : MonoBehaviour {
 
         switch(M_Players.Count){
             case 1:
-                playerstatstransform.localPosition = new Vector3(-675, 390, 0);
+                playerstatstransform.localPosition = new Vector3(6, -2, 0);
                 Player.ModifyControls(KeyCode.W, KeyCode.S, KeyCode.A, KeyCode.D, KeyCode.Q, KeyCode.E);
                 m_ScorePoints[0].GetComponent<ScorePoint>().m_PlayerID = 1;
                 break;
 
             case 2:
-                playerstatstransform.localPosition = new Vector3(675, 390, 0);
+                playerstatstransform.localPosition = new Vector3(-6, -2, 0);
                 Player.ModifyControls(KeyCode.I, KeyCode.K, KeyCode.J, KeyCode.L, KeyCode.U, KeyCode.O);
                 m_ScorePoints[1].GetComponent<ScorePoint>().m_PlayerID = 2;
                 break;
 
             case 3:
-                playerstatstransform.localPosition = new Vector3(-675, -390, 0);
+                playerstatstransform.localPosition = new Vector3(6, 2, 0);
                 m_ScorePoints[2].GetComponent<ScorePoint>().m_PlayerID = 3;
                 break;
 
             case 4:
-                playerstatstransform.localPosition = new Vector3(675, -390, 0);
+                playerstatstransform.localPosition = new Vector3(-6, 2, 0);
                 m_ScorePoints[3].GetComponent<ScorePoint>().m_PlayerID = 4;
                 break;
         }
