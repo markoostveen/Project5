@@ -5,14 +5,26 @@ using ObjectPool;
 public class GameManager : MonoBehaviour {
 
     [SerializeField]
-    private GameObject m_PlayerstatsPrefab;
+    private Transform m_UI;
+
     [SerializeField]
+    [Tooltip("prefab of the UI fields to show playerinfo")]
+    private GameObject m_PlayerstatsPrefab;
+
+    [SerializeField]
+    [Tooltip("player prefab to spawn into the game")]
     private GameObject m_playerPrefab;
 
-    public List<GameObject> M_Players { get; private set; }
+    [SerializeField][Tooltip("Points where people can empty there fishing nets")]
+    private GameObject[] m_ScorePoints;
+
+    internal List<GameObject> M_Players { get; private set; }
     private List<PlayerScore> m_Scores;
+    
+    //a refrence of the game manager to call from other classes
     public static GameManager Singelton;
 
+    //function will make singleton, and will make new lists
     private void Awake()
     {
         if (Singelton == null)
@@ -25,24 +37,34 @@ public class GameManager : MonoBehaviour {
 
         M_Players = new List<GameObject>();
         m_Scores = new List<PlayerScore>();
+
+        for (int i = 0; i < m_ScorePoints.Length; i++)
+        {
+            m_ScorePoints[i].AddComponent<ScorePoint>();
+        }
     }
 
-    private void Update()
+    private void Start()
     {
-
+        for (int i = 0; i < m_ScorePoints.Length; i++)
+        {
+            Pool.Singleton.Spawn(m_playerPrefab, m_ScorePoints[i].transform.position);
+        }
     }
 
+    //function to call when creating a new player
     public void RegisterPlayer(CharacterControl Player)
     {
 
+        //making a new score system for the player
         m_Scores.Add(new PlayerScore(Player));
         PlayerScore score = m_Scores[m_Scores.Count -1];
         M_Players.Add(Player.gameObject);
 
-        Transform UI = GameObject.Find("UI").transform;
-        PoolObject playerstatspool = Pool.Singleton.Spawn(m_PlayerstatsPrefab, UI);
-        if (playerstatspool == null)
-            return;
+        //spawning the UI element
+        PoolObject playerstatspool = Pool.Singleton.Spawn(m_PlayerstatsPrefab, m_UI);
+
+
         GameObject playerstats = playerstatspool.gameObject;
         RectTransform playerstatstransform = playerstats.GetComponent<RectTransform>();
 
@@ -50,24 +72,31 @@ public class GameManager : MonoBehaviour {
             case 1:
                 playerstatstransform.localPosition = new Vector3(-675, 390, 0);
                 Player.ModifyControls(KeyCode.W, KeyCode.S, KeyCode.A, KeyCode.D, KeyCode.Q, KeyCode.E);
+                m_ScorePoints[0].GetComponent<ScorePoint>().m_PlayerID = 1;
                 break;
 
             case 2:
                 playerstatstransform.localPosition = new Vector3(675, 390, 0);
                 Player.ModifyControls(KeyCode.I, KeyCode.K, KeyCode.J, KeyCode.L, KeyCode.U, KeyCode.O);
+                m_ScorePoints[1].GetComponent<ScorePoint>().m_PlayerID = 2;
                 break;
 
             case 3:
                 playerstatstransform.localPosition = new Vector3(-675, -390, 0);
+                m_ScorePoints[2].GetComponent<ScorePoint>().m_PlayerID = 3;
                 break;
 
             case 4:
                 playerstatstransform.localPosition = new Vector3(675, -390, 0);
+                m_ScorePoints[3].GetComponent<ScorePoint>().m_PlayerID = 4;
                 break;
         }
-
+        //call the registerfunction in the UI, this will setup all fields inside of them
         PlayerStats stats = playerstats.GetComponent<PlayerStats>();
         stats.UpdateID((byte)M_Players.Count, score, 200, new Sprite());
+
+        //update playerID in the character controller
+        Player.SetPlayerID = (byte)M_Players.Count;
     }
 
 }

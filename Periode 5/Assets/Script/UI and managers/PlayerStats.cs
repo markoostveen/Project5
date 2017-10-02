@@ -35,6 +35,7 @@ public class PlayerStats : PoolObject {
         base.Initialize(Info);
     }
 
+    //this function is called when a new player will join the game
     public void UpdateID(byte input, PlayerScore ScoreSystem, int ScoreGoal, Sprite ProfileImage)
     {
         m_PlayerID.text = "Player: " + input;
@@ -49,10 +50,11 @@ public class PlayerStats : PoolObject {
     {
         if (m_ScoreSystem != null)
         {
-            for (int i = 0; i < m_ScoreSystem.m_Struct.CurrentPowerups.Count; i++)
+            //used to update the active powerups and draw images of them on UI
+            for (int i = 0; i < m_ScoreSystem.GetScore().CurrentPowerups.Count; i++)
             {
                 m_PowerupImages[i].enabled = false;
-                PowerUp powerup = m_ScoreSystem.m_Struct.CurrentPowerups[i];
+                PowerUp powerup = m_ScoreSystem.GetScore().CurrentPowerups[i];
                 powerup.Update();
 
                 if (i < m_PowerupImages.Length)
@@ -62,12 +64,13 @@ public class PlayerStats : PoolObject {
                 }
             }
 
-
-            m_CurrentscorefieldText.text = m_ScoreSystem.m_Struct.Score + " / " + m_ScoreGoal;
-            m_CurrentScoreSlider.value = m_ScoreSystem.m_Struct.Score / m_ScoreGoal;
+            //updating the textfields
+            m_CurrentscorefieldText.text = m_ScoreSystem.GetScore().Score + " / " + m_ScoreGoal;
+            m_CurrentScoreSlider.value = m_ScoreSystem.GetScore().Score / m_ScoreGoal;
         }
     }
 
+    //called when this objects in being placed back into a pool
     protected override void Deactivate()
     {
         base.Deactivate();

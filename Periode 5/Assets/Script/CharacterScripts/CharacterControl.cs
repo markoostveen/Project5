@@ -21,6 +21,9 @@ public class CharacterControl : PoolObject
     public Action<IFish> M_Catched { get; set; }
     public Action<PowerUp> M_AddPowerup { get; set; }
 
+    private byte m_PlayerID;
+    public byte SetPlayerID { set { m_PlayerID = value; } }
+
     public void ModifyControls(KeyCode upKey, KeyCode downKey, KeyCode leftKey, KeyCode rightKey, KeyCode toFishingKey, KeyCode attackKey)
     {
         m_KeyCodes = new KeyCode[6];
@@ -60,11 +63,6 @@ public class CharacterControl : PoolObject
     {
         m_CurrentState.UpdateState();
 	}
-
-    public void AddPowerUp(PowerUp Power)
-    {
-
-    }
 
     public void DropFish()
     {
@@ -108,10 +106,14 @@ public class CharacterControl : PoolObject
 
         if (other.CompareTag("Scorepoint"))
         {
-            if (m_CurrentState == m_CarryingFishState)
+            if(other.gameObject.GetComponent<ScorePoint>().m_PlayerID == m_PlayerID)
             {
-                m_CarryingFishState.DropFishInScorepoint();
+                if (m_CurrentState == m_CarryingFishState)
+                {
+                    m_CarryingFishState.DropFishInScorepoint();
+                }
             }
+
         }
     }
 

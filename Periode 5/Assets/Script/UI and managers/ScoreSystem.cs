@@ -5,18 +5,28 @@ using UnityEngine;
 
 public class PlayerScore
 {
-    public PlayerCurrentScore m_Struct;
+    //struct that will store all nessecary info for the score
+    private PlayerCurrentScore M_Struct;
+
+    //function to get the score of this scoremanager
+    internal PlayerCurrentScore GetScore() { return M_Struct; }
+
+    //refrence to the object that is being observed
     private CharacterControl m_PlayerController;
+
+    //a list to check what fish have been cought to check when to add a point to player
     private List<IFish> CoughtFish;
 
     public PlayerScore(CharacterControl observer)
     {
         m_PlayerController = observer;
 
+        //making new actions in the observer and add functions of this class to be called on a alert
         observer.M_Catched = new System.Action<IFish>(Catch);
         observer.M_AddPowerup = new System.Action<PowerUp>(AddPowerup);
 
-        m_Struct = new PlayerCurrentScore()
+        //making a new struct with the details of score and active powerups
+        M_Struct = new PlayerCurrentScore()
         {
             CurrentPowerups = new List<PowerUp>()
         };
@@ -24,11 +34,15 @@ public class PlayerScore
         CoughtFish = new List<IFish>();
     }
 
+    //function being called when player catches a fish
     private void Catch(IFish fish)
     {
         CoughtFish.Add(fish);
         Fish actualfish = (Fish)fish;
         string Actualname = actualfish.name.Split('(')[0];
+
+        if (CheckScore(Actualname, 4))
+            M_Struct.Score += 1;
 
         //switch (Actualname)
         //{
@@ -45,11 +59,9 @@ public class PlayerScore
         //        m_Struct.Score += 1;
         //        break;
         //}
-
-        if (CheckScore(Actualname, 4))
-            m_Struct.Score += 1;
     }
 
+    //this function will check if there is the nessecary amount of the same fish in inventory
     private bool CheckScore(string input_name, byte requirement)
     {
         for (int i = 0; i < CoughtFish.Count; i++)
@@ -64,15 +76,18 @@ public class PlayerScore
         return false;
     }
 
+    //called when player picks up an powerup
     private void AddPowerup(PowerUp Power)
     {
+        //making a callback to call when time runs out
         Power.m_RemovePoolCallback += RemovePowerup;
-        m_Struct.CurrentPowerups.Add(Power);
+        M_Struct.CurrentPowerups.Add(Power);
     }
 
+    //called when powerup has been depleted (time active less than 0)
     public void RemovePowerup(PowerUp power)
     {
-        m_Struct.CurrentPowerups.Remove(power);
+        M_Struct.CurrentPowerups.Remove(power);
 
         Debug.Log("Powerup Removed");
     }
