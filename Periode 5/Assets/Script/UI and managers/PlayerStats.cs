@@ -27,7 +27,7 @@ public class PlayerStats : PoolObject {
     [SerializeField]
     private Image[] m_PowerupImages = new Image[8];
 
-    public override void Initialize(PoolObjectInfo Info)
+    internal override void Initialize(PoolObjectInfo Info)
     {
         for (int i = 0; i < m_PowerupImages.Length; i++)
             m_PowerupImages[i].enabled = false;

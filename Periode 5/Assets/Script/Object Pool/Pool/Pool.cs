@@ -171,15 +171,15 @@ namespace ObjectPool
                 if (prefab == null)
                     return null;
 
-                PoolObject Poollist = Spawn(GetPool(prefab.name));
+                PoolObject obj = RemoveFromPool(GetPool(prefab.name));
 
-                if (Poollist == null)
+                if (obj == null)
                 {
                     Debug.LogWarning("Not enough " + prefab.name + " in objectpool, " + 2 + " new " + prefab.name + " has been instantiated.");
-                    Spawn(LoadExtraItems(new Poolobj() { m_Amount = 2, m_Prefab = prefab }));
+                    obj = RemoveFromPool(LoadExtraItems(new Poolobj() { m_Amount = 1, m_Prefab = prefab }));
                 }
 
-                return RemoveFromPool(GetPool(prefab.name));
+                return obj;
             }
             /// <summary>
             /// Spawn object with the given prefab, if no object avalible pool will make more instances

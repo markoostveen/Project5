@@ -2,8 +2,10 @@
 
 public interface IFish
 {
-    string M_Name { get; set; }
+    string M_Name { get; }
 
+
+    GameObject GetGameObject { get; }
     void Atteract(Vector3 destination);
     void Catched();
     void BeingCatched();

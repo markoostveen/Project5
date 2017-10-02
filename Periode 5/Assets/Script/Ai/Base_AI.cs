@@ -25,7 +25,7 @@ public class Base_AI : PoolObject {
             AiUpdater();
     }
 
-    public override void Activate()
+    internal override void Activate()
     {
         base.Activate();
         m_Agent.SetDestination(CreateWanderTarget(50, transform.position));
