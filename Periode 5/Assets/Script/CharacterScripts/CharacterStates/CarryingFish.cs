@@ -13,13 +13,17 @@ public class CarryingFish : ICharacterStates
     private float m_VerMoveSpeed;
 
 
-    public CarryingFish(CharacterControl characterController, ref float horMoveSpeed, ref float verMoveSpeed, KeyCode[] keyCodes)
+    public CarryingFish(CharacterControl characterController, ref float horMoveSpeed, ref float verMoveSpeed)
     {
         m_KeyCodes = new KeyCode[6];
         m_CaughtFish = new List<IFish>();
         m_CharacterControl = characterController;
         m_HorMoveSpeed = horMoveSpeed;
         m_VerMoveSpeed = verMoveSpeed;
+    }
+
+    public void UpdateControls(KeyCode[] keyCodes)
+    {
         m_KeyCodes = keyCodes;
     }
 

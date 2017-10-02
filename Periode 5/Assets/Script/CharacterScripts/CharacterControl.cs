@@ -33,16 +33,22 @@ public class CharacterControl : PoolObject
         m_KeyCodes[3] = rightKey;
         m_KeyCodes[4] = toFishingKey;
         m_KeyCodes[5] = attackKey;
+
+        m_WalkingState.UpdateControls(m_KeyCodes);
+        m_FishingState.UpdateControls(m_KeyCodes);
+        m_CarryingFishState.UpdateControls(m_KeyCodes);
+
     }
 
-	void Start ()
+	public override void Initialize(PoolObjectInfo Info)
     {
         SetMoveSpeed();
-        m_WalkingState = new Walking(this, ref m_HorMoveSpeed, ref m_VerMoveSpeed, m_KeyCodes);
-        m_FishingState = new Fishing(this, m_KeyCodes);
-        m_CarryingFishState = new CarryingFish(this, ref m_HorMoveSpeed, ref m_VerMoveSpeed, m_KeyCodes);
+        m_WalkingState = new Walking(this, ref m_HorMoveSpeed, ref m_VerMoveSpeed);
+        m_FishingState = new Fishing(this);
+        m_CarryingFishState = new CarryingFish(this, ref m_HorMoveSpeed, ref m_VerMoveSpeed);
         m_CurrentState = m_WalkingState;
-        GameObject.Find("GameManager").GetComponent<GameManager>().RegisterPlayer(this);
+        GameManager.Singelton.RegisterPlayer(this);
+        base.Initialize(Info);
     }
 
     private void SetMoveSpeed()
@@ -57,7 +63,6 @@ public class CharacterControl : PoolObject
             m_VerMoveSpeed = 1f;
         }
     }
-
 
     void Update ()
     {

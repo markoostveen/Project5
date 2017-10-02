@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using ObjectPool;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
 
@@ -20,6 +21,10 @@ public class GameManager : MonoBehaviour {
 
     internal List<GameObject> M_Players { get; private set; }
     private List<PlayerScore> m_Scores;
+
+    //used to refrence how many fish can spawn
+    [SerializeField]
+    public int SpawnLimit;
     
     //a refrence of the game manager to call from other classes
     public static GameManager Singelton;
@@ -97,6 +102,12 @@ public class GameManager : MonoBehaviour {
 
         //update playerID in the character controller
         Player.SetPlayerID = (byte)M_Players.Count;
+    }
+
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.RightAlt))
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
 }

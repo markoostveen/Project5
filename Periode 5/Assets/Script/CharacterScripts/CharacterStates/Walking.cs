@@ -12,13 +12,17 @@ public class Walking : ICharacterStates
     private float m_VerMoveSpeed;
     private float m_AttackCooldown;
 
-    public Walking(CharacterControl characterController, ref float horMoveSpeed, ref float verMoveSpeed, KeyCode[] keyCodes)
+    public Walking(CharacterControl characterController, ref float horMoveSpeed, ref float verMoveSpeed)
     {
         m_KeyCodes = new KeyCode[6];
         m_CharacterController = characterController;
         m_HorMoveSpeed = horMoveSpeed;
         m_VerMoveSpeed = verMoveSpeed;
         m_AttackCooldown = 0;
+    }
+
+    public void UpdateControls(KeyCode[] keyCodes)
+    {
         m_KeyCodes = keyCodes;
     }
 
@@ -42,22 +46,22 @@ public class Walking : ICharacterStates
     {
         Vector3 currentPosition = m_CharacterController.gameObject.transform.position;
 
-        if (Input.GetKey(m_KeyCodes[0]))
+        if (Input.GetKey(m_KeyCodes[1]))
         {
           m_CharacterController.gameObject.transform.position = new Vector3(m_CharacterController.gameObject.transform.position.x,
             m_CharacterController.gameObject.transform.position.y, m_CharacterController.gameObject.transform.position.z + m_VerMoveSpeed * Time.deltaTime);
         }
-        if (Input.GetKey(m_KeyCodes[1]))
+        if (Input.GetKey(m_KeyCodes[0]))
         {
             m_CharacterController.gameObject.transform.position = new Vector3(m_CharacterController.gameObject.transform.position.x,
                 m_CharacterController.gameObject.transform.position.y, m_CharacterController.gameObject.transform.position.z - m_VerMoveSpeed * Time.deltaTime);
         }
-        if (Input.GetKey(m_KeyCodes[2]))
+        if (Input.GetKey(m_KeyCodes[3]))
         {
             m_CharacterController.gameObject.transform.position = new Vector3(m_CharacterController.gameObject.transform.position.x - m_HorMoveSpeed * Time.deltaTime,
                 m_CharacterController.gameObject.transform.position.y, m_CharacterController.gameObject.transform.position.z);
         }
-        if (Input.GetKey(m_KeyCodes[3]))
+        if (Input.GetKey(m_KeyCodes[2]))
         {
             m_CharacterController.gameObject.transform.position = new Vector3(m_CharacterController.gameObject.transform.position.x + m_HorMoveSpeed * Time.deltaTime,
                 m_CharacterController.gameObject.transform.position.y, m_CharacterController.gameObject.transform.position.z);

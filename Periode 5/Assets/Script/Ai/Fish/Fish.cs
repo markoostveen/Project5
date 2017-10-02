@@ -28,6 +28,9 @@ public class Fish : Base_AI , IFish{
     {
         base.Activate();
         m_State = (byte)State.Swimming;
+        if (GameManager.Singelton.SpawnLimit > 0)
+            GameManager.Singelton.SpawnLimit -= 1;
+        else Deactivate();
     }
 
     protected override void AiUpdater()

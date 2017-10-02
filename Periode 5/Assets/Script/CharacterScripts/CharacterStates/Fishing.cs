@@ -19,12 +19,16 @@ public class Fishing : ICharacterStates
 
     public Action<IFish> m_Catched;
 
-    public Fishing(CharacterControl characterController, KeyCode[] keyCodes)
+    public Fishing(CharacterControl characterController)
     {
         m_KeyCodes = new KeyCode[6];
         m_CharacterControl = characterController;
         m_FishInArea = new List<IFish>();
         m_CaughtFish = new List<IFish>();
+    }
+
+    public void UpdateControls(KeyCode[] keyCodes)
+    {
         m_KeyCodes = keyCodes;
     }
 
