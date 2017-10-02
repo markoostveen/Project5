@@ -12,6 +12,8 @@ public class Fishing : ICharacterStates
     private List<IFish> m_FishInArea;
     private List<IFish> m_CaughtFish;
 
+    private GameObject m_SelectedFishSprite;
+
     private CharacterControl m_CharacterControl;
 
     private int m_SelectedFishIndex;
@@ -19,12 +21,13 @@ public class Fishing : ICharacterStates
 
     public Action<IFish> m_Catched;
 
-    public Fishing(CharacterControl characterController)
+    public Fishing(CharacterControl characterController, ref GameObject selectedSprite)
     {
         m_KeyCodes = new KeyCode[6];
         m_CharacterControl = characterController;
         m_FishInArea = new List<IFish>();
         m_CaughtFish = new List<IFish>();
+        m_SelectedFishSprite = selectedSprite;
     }
 
     public void UpdateControls(KeyCode[] keyCodes)
@@ -44,6 +47,9 @@ public class Fishing : ICharacterStates
 
     public void UpdateState()
     {
+        //ObjectPool.PoolObject obj = (ObjectPool.PoolObject)m_CurrentSelectedFish;
+        //m_SelectedFishSprite.transform.position = obj.transform.position;
+
         Debug.Log("Fishing");
 
         SwitchSelectedFish();
@@ -158,7 +164,7 @@ public class Fishing : ICharacterStates
 
     public void SetCurrentSelecetedFish()
     {
-        m_CurrentSelectedFish = m_FishInArea[0];
+        m_CurrentSelectedFish = m_FishInArea[0];        
     }
 
     private void GetAllFishInArea()
