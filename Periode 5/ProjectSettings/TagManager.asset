@@ -4,6 +4,10 @@
 TagManager:
   serializedVersion: 2
   tags:
+<<<<<<< HEAD
+=======
+  - Spawner
+>>>>>>> eb36309e9e2bcca8dc1a250ba640b1f78d8df8ca
   - Scorepoint
   layers:
   - Default
@@ -14,7 +18,11 @@ TagManager:
   - UI
   - 
   - 
+<<<<<<< HEAD
   - 
+=======
+  - Fish
+>>>>>>> eb36309e9e2bcca8dc1a250ba640b1f78d8df8ca
   - 
   - 
   - 
