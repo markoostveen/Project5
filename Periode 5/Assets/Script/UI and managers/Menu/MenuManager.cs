@@ -1,12 +1,16 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+using Plugins.ObjectPool;
 
 namespace Game.UI
 {
     //starting the menu manager and updating it
     public partial class MenuManager
     {
+        [SerializeField]
+        private Text m_TextPlayerCount;
+
         private void Start()
         {
             DontDestroyOnLoad(gameObject);
@@ -17,7 +21,7 @@ namespace Game.UI
         }
     }
 
-    //setting variables
+    //setting Settings
     public partial class MenuManager : MonoBehaviour {
 
         private int m_FishSpawningLimit;
@@ -34,6 +38,44 @@ namespace Game.UI
             m_PlayerCount = (byte)Count;
         }
 
+    }
+
+    public partial class MenuManager
+    {
+        public void StartGame()
+        {
+            SceneManager.sceneLoaded += OnGameLoad;
+            SceneManager.LoadScene(SceneManager.GetSceneByName("Main").buildIndex,LoadSceneMode.Additive);
+        }
+
+        private void OnGameLoad(Scene Level, LoadSceneMode setting)
+        {
+            GameObject[] rootobjects = Level.GetRootGameObjects();
+
+            Pool mypool;
+            GameManager mymanager = null;
+            GameObject[] SpawnPoints = null;
+
+            foreach (GameObject i in rootobjects)
+            {
+                if(i.GetComponent<GameManager>() != null)
+                {
+                    mymanager = i.GetComponent<GameManager>();
+                    SpawnPoints = mymanager.GetScorePoints;
+                }
+
+
+                if (i.GetComponent<Pool>() != null)
+                    mypool = i.GetComponent<Pool>();
+            }
+
+            for (int i = 0; i < m_PlayerCount; i++)
+            {
+                Pool.Singleton.Spawn(mymanager.GetPlayerPrefab, SpawnPoints[i].transform.position);
+            }
+
+            SceneManager.UnloadSceneAsync(SceneManager.GetSceneByName("Menu"));
+        }
     }
 
     //animating the menu

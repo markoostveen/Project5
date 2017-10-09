@@ -21,9 +21,23 @@ namespace Game
         [SerializeField]
         [Tooltip("player prefab to spawn into the game")]
         private GameObject m_playerPrefab;
+        public GameObject GetPlayerPrefab
+        {
+            get
+            {
+                return m_playerPrefab;
+            }
+        }
 
         [SerializeField][Tooltip("Points where people can empty there fishing nets")]
         private GameObject[] m_ScorePoints;
+        public GameObject[] GetScorePoints
+        {
+            get
+            {
+                return m_ScorePoints;
+            }
+        }
 
         [SerializeField]
         [Tooltip("Boards where cought fish will display")]
@@ -34,7 +48,7 @@ namespace Game
 
         //used to refrence how many fish can spawn
         [SerializeField]
-        internal int SpawnLimit;
+        internal int SpawnLimit = 25;
     
         //a refrence of the game manager to call from other classes
         public static GameManager Singelton { get; private set; }
@@ -106,9 +120,10 @@ namespace Game
                     m_ScorePoints[3].GetComponent<ScorePoint>().m_PlayerID = 4;
                     break;
             }
+
             //call the registerfunction in the UI, this will setup all fields inside of them
             PlayerStats stats = playerstats.GetComponent<PlayerStats>();
-            stats.UpdateID((byte)M_Players.Count, score, 200, m_ScoreBoards[M_Players.Count - 1]);
+            stats.UpdateID((byte)M_Players.Count, score, 5, m_ScoreBoards[M_Players.Count - 1]);
 
             //update playerID in the character controller
             Player.SetPlayerID((byte)M_Players.Count);
