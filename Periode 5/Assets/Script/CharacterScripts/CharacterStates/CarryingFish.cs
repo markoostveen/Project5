@@ -1,32 +1,36 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using Game.Character.Ai;
+using Game.Character.player.Powerups;
 
-public class CarryingFish : ICharacterStates
+namespace Game.Character.player
 {
-    private List<IFish> m_CaughtFish;
+    public class CarryingFish : ICharacterStates
+{
+    private List<IFish> M_CaughtFish { get; }
 
     private KeyCode[] m_KeyCodes;
 
-    private CharacterControl m_CharacterControl;
+    private CharacterControl M_CharacterControl { get; }
 
-    private float m_HorMoveSpeed;
-    private float m_VerMoveSpeed;
+    private float M_HorMoveSpeed { get; }
+    private float M_VerMoveSpeed { get; }
 
 
     public CarryingFish(CharacterControl characterController, ref float horMoveSpeed, ref float verMoveSpeed)
     {
         m_KeyCodes = new KeyCode[6];
-        m_CaughtFish = new List<IFish>();
-        m_CharacterControl = characterController;
-        m_HorMoveSpeed = horMoveSpeed;
-        m_VerMoveSpeed = verMoveSpeed;
+        M_CaughtFish = new List<IFish>();
+        M_CharacterControl = characterController;
+        M_HorMoveSpeed = horMoveSpeed;
+        M_VerMoveSpeed = verMoveSpeed;
     }
 
     public void UpdateControls(KeyCode[] keyCodes)
     {
         m_KeyCodes = keyCodes;
     }
-
+    
     public void InitializeState()
     {
         
@@ -36,7 +40,7 @@ public class CarryingFish : ICharacterStates
     {
         for (int i = 0; i < caughtFish.Count; i++)
         {
-            m_CaughtFish.Add(caughtFish[i]);
+            M_CaughtFish.Add(caughtFish[i]);
         }
     }
 
@@ -47,66 +51,69 @@ public class CarryingFish : ICharacterStates
         //m_HorMoveSpeed = m_HorMoveSpeed * (1f / m_CaughtFish.Count);
         //m_VerMoveSpeed = m_VerMoveSpeed * (1f / m_CaughtFish.Count);
 
-        if (m_CaughtFish.Count <= 0)
+        if (M_CaughtFish.Count <= 0)
         {
             ToWalking();
         }
 
-        Vector3 currentPosition = m_CharacterControl.gameObject.transform.position;
+        Vector3 currentPosition = M_CharacterControl.gameObject.transform.position;
 
         if (Input.GetKey(KeyCode.W))
         {
-            m_CharacterControl.gameObject.transform.position = new Vector3(m_CharacterControl.gameObject.transform.position.x,
-            m_CharacterControl.gameObject.transform.position.y, m_CharacterControl.gameObject.transform.position.z + m_VerMoveSpeed * Time.deltaTime);
+            M_CharacterControl.gameObject.transform.position = new Vector3(M_CharacterControl.gameObject.transform.position.x,
+            M_CharacterControl.gameObject.transform.position.y, M_CharacterControl.gameObject.transform.position.z + M_VerMoveSpeed * Time.deltaTime);
         }
         if (Input.GetKey(KeyCode.S))
         {
-            m_CharacterControl.gameObject.transform.position = new Vector3(m_CharacterControl.gameObject.transform.position.x,
-                m_CharacterControl.gameObject.transform.position.y, m_CharacterControl.gameObject.transform.position.z - m_VerMoveSpeed * Time.deltaTime);
+            M_CharacterControl.gameObject.transform.position = new Vector3(M_CharacterControl.gameObject.transform.position.x,
+                M_CharacterControl.gameObject.transform.position.y, M_CharacterControl.gameObject.transform.position.z - M_VerMoveSpeed * Time.deltaTime);
         }
         if (Input.GetKey(KeyCode.A))
         {
-            m_CharacterControl.gameObject.transform.position = new Vector3(m_CharacterControl.gameObject.transform.position.x - m_HorMoveSpeed * Time.deltaTime,
-                m_CharacterControl.gameObject.transform.position.y, m_CharacterControl.gameObject.transform.position.z);
+            M_CharacterControl.gameObject.transform.position = new Vector3(M_CharacterControl.gameObject.transform.position.x - M_HorMoveSpeed * Time.deltaTime,
+                M_CharacterControl.gameObject.transform.position.y, M_CharacterControl.gameObject.transform.position.z);
         }
         if (Input.GetKey(KeyCode.D))
         {
-            m_CharacterControl.gameObject.transform.position = new Vector3(m_CharacterControl.gameObject.transform.position.x + m_HorMoveSpeed * Time.deltaTime,
-                m_CharacterControl.gameObject.transform.position.y, m_CharacterControl.gameObject.transform.position.z);
+            M_CharacterControl.gameObject.transform.position = new Vector3(M_CharacterControl.gameObject.transform.position.x + M_HorMoveSpeed * Time.deltaTime,
+                M_CharacterControl.gameObject.transform.position.y, M_CharacterControl.gameObject.transform.position.z);
         }
     }
 
     public void DropFish()
     {
-        m_CaughtFish.RemoveAt(0);
+        M_CaughtFish.RemoveAt(0);
     }
 
     public void  DropFishInScorepoint()
     {
-        foreach (IFish i in m_CaughtFish)
+        foreach (IFish i in M_CaughtFish)
         {
-            m_CharacterControl.M_Catched.Invoke(i);
+            M_CharacterControl.M_Catched.Invoke(i);
             Debug.Log("Yeahhh");
         }
     }
 
     public void ToWalking()
     {
-        m_CharacterControl.SwitchToWalkingState();
+        M_CharacterControl.SwitchToWalkingState();
     }
 
     public void ToFishing()
     {
-        m_CharacterControl.SwitchToFishingState();
+        M_CharacterControl.SwitchToFishingState();
     }
 
-    public void OnTriggerStay(Collider other)
+    public void OnTriggerStay(Collider collider)
     {
 
     }
 
     public void AddPowerUp(PowerUp Power)
     {
-        m_CharacterControl.M_AddPowerup.Invoke(Power);
+        M_CharacterControl.M_AddPowerup.Invoke(Power);
     }
 }
+}
+
+
