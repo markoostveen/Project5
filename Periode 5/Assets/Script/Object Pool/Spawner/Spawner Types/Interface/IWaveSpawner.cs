@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace ObjectPool
+namespace Plugins.ObjectPool.Spawners
 {
     public interface IWaveSpawner
     {

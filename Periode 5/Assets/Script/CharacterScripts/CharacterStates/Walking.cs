@@ -1,92 +1,98 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Game.Character.player.Powerups;
 
-public class Walking : ICharacterStates
+namespace Game.Character.player
 {
-    private CharacterControl m_CharacterController;
-
-    private KeyCode[] m_KeyCodes;
-
-    private float m_HorMoveSpeed;
-    private float m_VerMoveSpeed;
-    private float m_AttackCooldown;
-
-    public Walking(CharacterControl characterController, ref float horMoveSpeed, ref float verMoveSpeed)
+    public class Walking : ICharacterStates
     {
-        m_KeyCodes = new KeyCode[6];
-        m_CharacterController = characterController;
-        m_HorMoveSpeed = horMoveSpeed;
-        m_VerMoveSpeed = verMoveSpeed;
-        m_AttackCooldown = 0;
-    }
+        private CharacterControl M_CharacterController { get; }
 
-    public void UpdateControls(KeyCode[] keyCodes)
-    {
-        m_KeyCodes = keyCodes;
-    }
+        private KeyCode[] m_KeyCodes;
 
-    public void InitializeState()
-    {
+        private float M_HorMoveSpeed { get; }
+        private float M_VerMoveSpeed { get; }
+        private float M_AttackCooldown { get; }
 
-    }
-
-    public void UpdateState()
-    {
-        Debug.Log("Walking");
-        if (Input.GetKeyDown(m_KeyCodes[4]))
+        public Walking(CharacterControl characterController, ref float horMoveSpeed, ref float verMoveSpeed)
         {
-            ToFishing();
+            m_KeyCodes = new KeyCode[6];
+            M_CharacterController = characterController;
+            M_HorMoveSpeed = horMoveSpeed;
+            M_VerMoveSpeed = verMoveSpeed;
+            M_AttackCooldown = 0;
         }
 
-        Movement();
-    }
-
-    private void Movement()
-    {
-        Vector3 currentPosition = m_CharacterController.gameObject.transform.position;
-
-        if (Input.GetKey(m_KeyCodes[1]))
+        public void UpdateControls(KeyCode[] keyCodes)
         {
-          m_CharacterController.gameObject.transform.position = new Vector3(m_CharacterController.gameObject.transform.position.x,
-            m_CharacterController.gameObject.transform.position.y, m_CharacterController.gameObject.transform.position.z + m_VerMoveSpeed * Time.deltaTime);
+            m_KeyCodes = keyCodes;
         }
-        if (Input.GetKey(m_KeyCodes[0]))
-        {
-            m_CharacterController.gameObject.transform.position = new Vector3(m_CharacterController.gameObject.transform.position.x,
-                m_CharacterController.gameObject.transform.position.y, m_CharacterController.gameObject.transform.position.z - m_VerMoveSpeed * Time.deltaTime);
-        }
-        if (Input.GetKey(m_KeyCodes[3]))
-        {
-            m_CharacterController.gameObject.transform.position = new Vector3(m_CharacterController.gameObject.transform.position.x - m_HorMoveSpeed * Time.deltaTime,
-                m_CharacterController.gameObject.transform.position.y, m_CharacterController.gameObject.transform.position.z);
-        }
-        if (Input.GetKey(m_KeyCodes[2]))
-        {
-            m_CharacterController.gameObject.transform.position = new Vector3(m_CharacterController.gameObject.transform.position.x + m_HorMoveSpeed * Time.deltaTime,
-                m_CharacterController.gameObject.transform.position.y, m_CharacterController.gameObject.transform.position.z);
-        }
-    }
 
-    public void ToFishing()
-    {
-        m_CharacterController.SwitchToFishingState();
-    }
-
-    public void OnTriggerStay(Collider other)
-    {
-        if (Input.GetKey(m_KeyCodes[5]) && m_AttackCooldown >= 2)
+        public void InitializeState()
         {
-            if (other.CompareTag("Player"))
+
+        }
+
+        public void UpdateState()
+        {
+            Debug.Log("Walking");
+            if (Input.GetKeyDown(m_KeyCodes[4]))
             {
-                /// fabio moet slaan en stoppen met vissen vangen
-                other.gameObject.GetComponent<CharacterControl>().DropFish();
+                ToFishing();
+            }
+
+            Movement();
+        }
+
+        private void Movement()
+        {
+            Vector3 currentPosition = M_CharacterController.gameObject.transform.position;
+
+            if (Input.GetKey(m_KeyCodes[1]))
+            {
+              M_CharacterController.gameObject.transform.position = new Vector3(M_CharacterController.gameObject.transform.position.x,
+                M_CharacterController.gameObject.transform.position.y, M_CharacterController.gameObject.transform.position.z + M_VerMoveSpeed * Time.deltaTime);
+            }
+            if (Input.GetKey(m_KeyCodes[0]))
+            {
+                M_CharacterController.gameObject.transform.position = new Vector3(M_CharacterController.gameObject.transform.position.x,
+                    M_CharacterController.gameObject.transform.position.y, M_CharacterController.gameObject.transform.position.z - M_VerMoveSpeed * Time.deltaTime);
+            }
+            if (Input.GetKey(m_KeyCodes[3]))
+            {
+                M_CharacterController.gameObject.transform.position = new Vector3(M_CharacterController.gameObject.transform.position.x - M_HorMoveSpeed * Time.deltaTime,
+                    M_CharacterController.gameObject.transform.position.y, M_CharacterController.gameObject.transform.position.z);
+            }
+            if (Input.GetKey(m_KeyCodes[2]))
+            {
+                M_CharacterController.gameObject.transform.position = new Vector3(M_CharacterController.gameObject.transform.position.x + M_HorMoveSpeed * Time.deltaTime,
+                    M_CharacterController.gameObject.transform.position.y, M_CharacterController.gameObject.transform.position.z);
             }
         }
-    }
 
-    public void AddPowerUp(PowerUp Power)
-    {
-        m_CharacterController.M_AddPowerup.Invoke(Power);
+        public void ToFishing()
+        {
+            M_CharacterController.SwitchToFishingState();
+        }
+
+        public void OnTriggerStay(Collider collider)
+        {
+            if (Input.GetKey(m_KeyCodes[5])
+                && M_AttackCooldown >= 2
+                && collider.CompareTag("Player")
+                && collider.gameObject != null)
+            {
+                /// fabio moet slaan en stoppen met vissen vangen
+                collider.gameObject.GetComponent<CharacterControl>().DropFish();
+            }
+        }
+
+        public void AddPowerUp(PowerUp Power)
+        {
+            M_CharacterController.M_AddPowerup.Invoke(Power);
+        }
     }
 }
+
+

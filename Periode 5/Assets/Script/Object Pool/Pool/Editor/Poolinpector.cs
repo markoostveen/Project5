@@ -4,7 +4,7 @@ using UnityEditor;
 using UnityEngine.SceneManagement;
 using UnityEditor.SceneManagement;
 
-namespace ObjectPool
+namespace Plugins.ObjectPool
 {
     [CustomEditor(typeof(Pool))]
     sealed class Poolinpector : Editor

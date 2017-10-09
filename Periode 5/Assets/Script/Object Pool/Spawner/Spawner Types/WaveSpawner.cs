@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-namespace ObjectPool
+namespace Plugins.ObjectPool.Spawners
 {
-    public class WaveSpawner : Spawner, IWaveSpawner
+    internal class WaveSpawner : Spawner, IWaveSpawner
     {
 
-        public float M_Timer { set; get; }
+        public float M_Timer { get; set; }
 
         public float M_MaxTimer { get; set; }
 

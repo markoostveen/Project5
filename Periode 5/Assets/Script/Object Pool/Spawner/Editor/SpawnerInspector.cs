@@ -3,8 +3,9 @@ using UnityEngine;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine.SceneManagement;
+using Plugins.ObjectPool.Spawners;
 
-namespace ObjectPool
+namespace Plugins.ObjectPool
 {
     [CustomEditor(typeof(SpawnerSelector))]
     sealed class SpawnerInspector : Editor

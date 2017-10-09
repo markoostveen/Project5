@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace ObjectPool
+namespace Plugins.ObjectPool
 {
     internal delegate void PoolObjectCallback(List<PoolObject> Pool, PoolObject Script, Transform Parrent);
     internal struct PoolObjectInfo { internal List<PoolObject> Pool; internal Transform Parrent; internal PoolObjectCallback Callback; }
@@ -17,7 +17,7 @@ namespace ObjectPool
             gameObject.SetActive(false);
         }
 
-        internal virtual void Activate()
+        protected internal virtual void Activate()
         {
             transform.SetParent(null);
         }

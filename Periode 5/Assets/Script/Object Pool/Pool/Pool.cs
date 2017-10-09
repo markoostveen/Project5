@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using Plugins.ObjectPool.Spawners;
 
-namespace ObjectPool
+namespace Plugins.ObjectPool
 {
-    [Serializable]
     public sealed class Pool : MonoBehaviour {
 
-        public static Pool Singleton;
+        public static Pool Singleton { get; private set; }
         private List<KeyValuePair<List<PoolObject>, string>> m_Pools;
 
         public Poolobj[] ObjectList;
@@ -57,7 +57,7 @@ namespace ObjectPool
                     Debug.LogError("No object attached a default object", transform);
             }
 
-            m_RemappingRequest = true;
+            M_RemappingRequest = true;
         }
         #endregion
 
@@ -490,16 +490,14 @@ namespace ObjectPool
         /// <returns></returns>
         private PoolObject RemoveFromPool(List<PoolObject> Poollist)
         {
-            if(Poollist != null)
+            if(Poollist != null
+                && Poollist.Count > 0)
             {
-                if (Poollist.Count > 0)
-                {
-                    PoolObject poolobject = Poollist[0];
-                    Poollist.Remove(poolobject);
-                    poolobject.gameObject.SetActive(true);
-                    poolobject.Activate();
-                    return poolobject;
-                }
+                PoolObject poolobject = Poollist[0];
+                Poollist.Remove(poolobject);
+                poolobject.gameObject.SetActive(true);
+                poolobject.Activate();
+                return poolobject;
             }
             return null;
         }
@@ -538,7 +536,7 @@ namespace ObjectPool
         /// <param name="Amount"></param>
         /// <param name="Prefab"></param>
         /// <returns></returns>
-        public List<PoolObject> LoadExtraItems(Poolobj Input)
+        internal List<PoolObject> LoadExtraItems(Poolobj Input)
         {
 
             List<PoolObject> output = null;
@@ -555,7 +553,7 @@ namespace ObjectPool
                     SpawnInPool(Parrent.transform, Input.m_Prefab, output);
                 }
 
-                m_RemappingRequest = true;
+                M_RemappingRequest = true;
                 Debug.Log("New objectpool created, poolname: " + Input.m_Prefab.name);
             }
             else
@@ -577,8 +575,8 @@ namespace ObjectPool
 
         #region Other
 
-        public bool IsRemapping { get; private set; }
-        public bool m_RemappingRequest;
+        internal bool M_IsRemapping { get; private set; }
+        internal bool M_RemappingRequest { get; private set; }
         public string[] m_Tags;
 
         /// <summary>
@@ -587,10 +585,10 @@ namespace ObjectPool
         /// <returns></returns>
         private IEnumerator RemapPoolData()
         {
-            if (!IsRemapping)
+            if (!M_IsRemapping)
             {
-                IsRemapping = true;
-                m_RemappingRequest = false;
+                M_IsRemapping = true;
+                M_RemappingRequest = false;
                 yield return null;
                 foreach (string tagname in m_Tags)
                 {
@@ -600,7 +598,7 @@ namespace ObjectPool
                             j.Initialize();
                     }
                 }
-                IsRemapping = false;
+                M_IsRemapping = false;
                 Debug.Log("Remapping Pool Completed");
             }
             else
@@ -625,7 +623,7 @@ namespace ObjectPool
 
         public void FixedUpdate()
         {
-            if (m_RemappingRequest && !IsRemapping)
+            if (M_RemappingRequest && !M_IsRemapping)
                 StartCoroutine(RemapPoolData());
         }
 
@@ -638,7 +636,7 @@ namespace ObjectPool
     [Serializable]
     public sealed class Poolobj : PoolObjBase
     {
-            public int m_Amount = 1;
+        public int m_Amount = 1;
     }
     /// <summary>
     /// base class of spawninformation
