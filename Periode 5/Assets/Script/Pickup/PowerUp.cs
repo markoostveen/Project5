@@ -40,7 +40,7 @@ namespace Game.Character.player.Powerups
         internal RemovePowerupEffectDelegate m_RemoveCallBack;
         internal RemovePowerupPoolDelegate m_RemovePoolCallback;
 
-        private Sprite M_Image { get; }
+        private Sprite M_Image;
         public Sprite GetSprite() { return M_Image; }
 
         internal PowerUp(PowerupStats stats, RemovePowerupEffectDelegate callback, Sprite sprite)

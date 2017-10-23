@@ -1,8 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using System;
-using ObjectPool;
+using Plugins.ObjectPool;
+using Game.Character.Ai;
+using Game.Character.player.Powerups;
+using Game;
+using Game.Character.Pickup;
 
 public class CharacterControl : PoolObject
 {
@@ -42,15 +45,6 @@ public class CharacterControl : PoolObject
         m_Inputs[4] = horizontalAxis;
         m_Inputs[5] = verticalAxis;
 
-        if (m_Inputs[0] == null)
-        {
-            m_Inputs[0] = "Controller1AButton";
-            m_Inputs[1] = "Controller1XButton";
-            m_Inputs[2] = "Controller1LeftBumper";
-            m_Inputs[3] = "Controller1RightBumper";
-            m_Inputs[4] = "Controller1JoystickHorizontal";
-            m_Inputs[5] = "Controller1JoystickVertical";
-        }
 
         m_WalkingState.UpdateControls(m_Inputs);
         m_FishingState.UpdateControls(m_Inputs);
@@ -64,13 +58,6 @@ public class CharacterControl : PoolObject
 
     private void Start()
     {
-        m_Inputs = new string[6];
-        m_Inputs[0] = "Controller1AButton";
-        m_Inputs[1] = "Controller1XButton";
-        m_Inputs[2] = "Controller1LeftBumper";
-        m_Inputs[3] = "Controller1RightBumper";
-        m_Inputs[4] = "Controller1JoystickHorizontal";
-        m_Inputs[5] = "Controller1JoystickVertical";
 
         m_WalkingState = new Walking(this, ref m_HorMoveSpeed, ref m_VerMoveSpeed);
         m_FishingState = new Fishing(this, m_SelectedSprite);

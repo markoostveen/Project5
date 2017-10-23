@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using Game.Character.Ai;
+using Game.Character.player.Powerups;
 
 public class CarryingFish : ICharacterStates
 {
@@ -57,7 +59,7 @@ public class CarryingFish : ICharacterStates
             ToWalking();
         }
 
-        m_CharacterControl.gameObject.transform.position += new Vector3(Input.GetAxis(m_Inputs[4]), 0, -Input.GetAxis(m_Inputs[5])) * Time.deltaTime;
+        m_CharacterControl.gameObject.transform.position += new Vector3(-Input.GetAxis(m_Inputs[4]), 0, Input.GetAxis(m_Inputs[5])) * Time.deltaTime;
     }
 
     public void DropFish()

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using Game.Character.Ai;
+using Game.Character.player.Powerups;
 
 public class Fishing : ICharacterStates
 {
