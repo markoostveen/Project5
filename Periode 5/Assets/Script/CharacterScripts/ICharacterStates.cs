@@ -1,20 +1,16 @@
 ﻿using UnityEngine;
-using Game.Character.player.Powerups;
+using System.Collections.Generic;
+using System;
 
-namespace Game.Character.player
+public interface ICharacterStates
 {
-    internal interface ICharacterStates
-    {
-        void InitializeState();
+    void InitializeState();
 
-        void UpdateControls(KeyCode[] keyCodes);
+    void UpdateControls(string[] keyCodes);
 
-        void UpdateState();
+    void UpdateState();
 
-        void OnTriggerStay(Collider collider);
+    void OnTriggerStay(Collider collider);
 
-        void AddPowerUp(PowerUp Power);
-    }
+    void AddPowerUp(PowerUp Power);
 }
-
-
