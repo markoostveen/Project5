@@ -7,7 +7,11 @@ namespace Game.Character.player
     {
         void InitializeState();
 
+<<<<<<< HEAD
         void UpdateControls(KeyCode[] keyCodes);
+=======
+    void UpdateControls(string[] keyCodes);
+>>>>>>> Fabio
 
         void UpdateState();
 
