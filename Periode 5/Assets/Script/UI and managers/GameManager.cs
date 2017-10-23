@@ -73,26 +73,28 @@ public class GameManager : MonoBehaviour {
         GameObject playerstats = playerstatspool.gameObject;
         RectTransform playerstatstransform = playerstats.GetComponent<RectTransform>();
 
-        switch(M_Players.Count){
+        switch (M_Players.Count){
             case 1:
                 playerstatstransform.localPosition = new Vector3(-675, 390, 0);
-                Player.ModifyControls(KeyCode.W, KeyCode.S, KeyCode.A, KeyCode.D, KeyCode.Q, KeyCode.E);
+                Player.ModifyControls("Controller1AButton", "Controller1XButton", "Controller1LeftBumper", "Controller1RightBumper", "Controller1JoystickHorizontal", "Controller1JoystickVertical");
                 m_ScorePoints[0].GetComponent<ScorePoint>().m_PlayerID = 1;
                 break;
 
             case 2:
                 playerstatstransform.localPosition = new Vector3(675, 390, 0);
-                Player.ModifyControls(KeyCode.I, KeyCode.K, KeyCode.J, KeyCode.L, KeyCode.U, KeyCode.O);
+                Player.ModifyControls("Controller2AButton", "Controller2XButton", "Controller2LeftBumper", "Controller2RightBumper", "Controller2JoystickHorizontal", "Controller2JoystickVertical");
                 m_ScorePoints[1].GetComponent<ScorePoint>().m_PlayerID = 2;
                 break;
 
             case 3:
                 playerstatstransform.localPosition = new Vector3(-675, -390, 0);
+                Player.ModifyControls("Controller3AButton", "Controller3XButton", "Controller3LeftBumper", "Controller3RightBumper", "Controller3JoystickHorizontal", "Controller3JoystickVertical");
                 m_ScorePoints[2].GetComponent<ScorePoint>().m_PlayerID = 3;
                 break;
 
             case 4:
                 playerstatstransform.localPosition = new Vector3(675, -390, 0);
+                Player.ModifyControls("Controller4AButton", "Controller4XButton", "Controller4LeftBumper", "Controller4RightBumper", "Controller4JoystickHorizontal", "Controller4JoystickVertical");
                 m_ScorePoints[3].GetComponent<ScorePoint>().m_PlayerID = 4;
                 break;
         }

@@ -6,7 +6,7 @@ public interface ICharacterStates
 {
     void InitializeState();
 
-    void UpdateControls(KeyCode[] keyCodes);
+    void UpdateControls(string[] keyCodes);
 
     void UpdateState();
 
