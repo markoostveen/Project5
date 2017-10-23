@@ -1,24 +1,23 @@
 ﻿using UnityEngine;
 using Game.Character.player.Powerups;
 
-namespace Game.Character.player
+public interface ICharacterStates
 {
-    internal interface ICharacterStates
-    {
-        void InitializeState();
+    void InitializeState();
 
+<<<<<<< HEAD
 <<<<<<< HEAD
         void UpdateControls(KeyCode[] keyCodes);
 =======
     void UpdateControls(string[] keyCodes);
 >>>>>>> Fabio
+=======
+    void UpdateControls(string[] keyCodes);
+>>>>>>> Mark
 
-        void UpdateState();
+    void UpdateState();
 
-        void OnTriggerStay(Collider collider);
+    void OnTriggerStay(Collider collider);
 
-        void AddPowerUp(PowerUp Power);
-    }
+    void AddPowerUp(PowerUp Power);
 }
-
-

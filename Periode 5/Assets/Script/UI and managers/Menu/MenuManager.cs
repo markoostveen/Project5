@@ -25,6 +25,17 @@ namespace Game.UI
         private void Update()
         {
             m_TextPlayerCount.text = m_PlayerCount.ToString();
+            //Ray raycast = Camera.main.ScreenPointToRay(Input.mousePosition);
+            //Debug.Log(Input.mousePosition);
+            //Debug.DrawRay(raycast.origin, raycast.direction);
+            //if (Physics.Raycast(raycast))
+            //{
+            //    m_StartImageref.sprite = m_HighlightImage;
+            //}
+            //else
+            //{
+            //    m_StartImageref.sprite = null;
+            //}
         }
     }
 
@@ -61,6 +72,12 @@ namespace Game.UI
     public partial class MenuManager
     {
         private string m_CurrentSceneName;
+
+        //[SerializeField]
+        //private Image m_StartImageref;
+
+        //[SerializeField]
+        //private Sprite m_HighlightImage;
 
         public void StartGame()
         {
