@@ -52,17 +52,24 @@ namespace Game
             M_Players = new List<GameObject>();
             m_Scores = new List<PlayerScore>();
 
+<<<<<<< HEAD
             //foreach (Text i in m_ScoreBoards)
             //    i.gameObject.transform.parent.gameObject.SetActive(false);
+=======
+            for (int i = 0; i < m_ScorePoints.Length; i++)
+            {
+                m_ScorePoints[i].AddComponent<ScorePoint>();
+            }
+>>>>>>> parent of 38f45de... holiday changes
         }
 
-        //protected void Start()
-        //{
-        //    for (int i = 0; i < m_ScorePoints.Length; i++)
-        //    {
-        //        Pool.Singleton.Spawn(m_playerPrefab, m_ScorePoints[i].transform.position);
-        //    }
-        //}
+        protected void Start()
+        {
+            for (int i = 0; i < m_ScorePoints.Length; i++)
+            {
+                Pool.Singleton.Spawn(m_playerPrefab, m_ScorePoints[i].transform.position);
+            }
+        }
 
         //function to call when creating a new player
         public void RegisterPlayer(CharacterControl Player)
@@ -71,8 +78,11 @@ namespace Game
             //making a new score system for the player
             m_Scores.Add(new PlayerScore(Player));
             PlayerScore score = m_Scores[m_Scores.Count -1];
+<<<<<<< HEAD
             m_ScorePoints[m_Scores.Count - 1].AddComponent<ScorePoint>();
             //m_ScoreBoards[m_Scores.Count - 1].gameObject.transform.parent.gameObject.SetActive(true);
+=======
+>>>>>>> parent of 38f45de... holiday changes
             M_Players.Add(Player.gameObject);
 
             //spawning the UI element

@@ -11,16 +11,22 @@ namespace Game.UI
         [SerializeField]
         private Text m_TextPlayerCount;
 
+<<<<<<< HEAD
         [SerializeField]
         private string m_Level;
 
 =======
 >>>>>>> parent of d65226e... Worked on it for today
+=======
+>>>>>>> parent of 38f45de... holiday changes
         private void Start()
         {
+            DontDestroyOnLoad(gameObject);
+
             m_animator = GetComponent<Animator>();
             m_MainBehaviour = m_animator.GetBehaviour<MenuMainBehaviour>();
             m_CreditBehaviour = m_animator.GetBehaviour<MenuCreditsBehaviour>();
+<<<<<<< HEAD
             m_PlayerCount = 2;
         }
 
@@ -38,6 +44,8 @@ namespace Game.UI
             //{
             //    m_StartImageref.sprite = null;
             //}
+=======
+>>>>>>> parent of 38f45de... holiday changes
         }
     }
 
@@ -48,28 +56,19 @@ namespace Game.UI
 
         private byte m_PlayerCount;
 
-        //sets a limit of fish that can spawn during the game
         public void SetSpawningLimit(int Limit)
         {
             m_FishSpawningLimit = Limit;
         }
 
-        //increases the playercount
-        public void AddPlayer()
+        public void SetPlayerCount(int Count)
         {
-            if (m_PlayerCount != 4)
-                m_PlayerCount++;
-        }
-
-        //lowers the playercount
-        public void RemovePlayer()
-        {
-            if (m_PlayerCount > 2)
-                m_PlayerCount--;
+            m_PlayerCount = (byte)Count;
         }
 
     }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
     //starting the game
     public partial class MenuManager
@@ -82,32 +81,24 @@ namespace Game.UI
         //[SerializeField]
         //private Sprite m_HighlightImage;
 
+=======
+    public partial class MenuManager
+    {
+>>>>>>> parent of 38f45de... holiday changes
         public void StartGame()
         {
-            //search for active scene
-            m_CurrentSceneName = SceneManager.GetActiveScene().name;
-
-            //add game load function to action when the new level has been loaded
             SceneManager.sceneLoaded += OnGameLoad;
-
-            //load the main level scene
-            SceneManager.LoadScene(m_Level, LoadSceneMode.Additive);
+            SceneManager.LoadScene(SceneManager.GetSceneByName("Main").buildIndex,LoadSceneMode.Additive);
         }
 
-        //needs to be worked on
         private void OnGameLoad(Scene Level, LoadSceneMode setting)
         {
-            //remove this function from the action
-            SceneManager.sceneLoaded -= OnGameLoad;
-
-            //get root objects of newly loaded scene
             GameObject[] rootobjects = Level.GetRootGameObjects();
 
             Pool mypool;
             GameManager mymanager = null;
             GameObject[] SpawnPoints = null;
 
-            //try and find the object pool in the new level
             foreach (GameObject i in rootobjects)
             {
                 if(i.GetComponent<GameManager>() != null)
@@ -121,14 +112,12 @@ namespace Game.UI
                     mypool = i.GetComponent<Pool>();
             }
 
-            //spawns an amount of players according to setting in this manager
             for (int i = 0; i < m_PlayerCount; i++)
             {
                 Pool.Singleton.Spawn(mymanager.GetPlayerPrefab, SpawnPoints[i].transform.position);
             }
 
-            //unload current scene
-            SceneManager.UnloadSceneAsync(m_CurrentSceneName);
+            SceneManager.UnloadSceneAsync(SceneManager.GetSceneByName("Menu"));
         }
     }
 

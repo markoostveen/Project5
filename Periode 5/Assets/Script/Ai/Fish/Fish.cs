@@ -56,19 +56,11 @@ namespace Game.Character.Ai
         public void BeingCatched()
         {
             m_State = (byte)State.beingcatched;
-            m_Agent.speed = 0;
         }
 
         public void Escaped()
         {
             m_State = (byte)State.Swimming;
-            m_Agent.speed = m_speed;
-            byte retry = 0;
-            while (Vector3.Distance(m_Agent.destination, transform.position) < 3 && retry < 5)
-            {
-                m_Agent.SetDestination(CreateWanderTarget(10, transform.position));
-                retry++;
-            }
         }
 
         protected override Vector3 CreateWanderTarget(float Radius, Vector3 Pivot)
