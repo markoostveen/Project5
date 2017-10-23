@@ -1,19 +1,21 @@
-﻿using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.SceneManagement;
-using Plugins.ObjectPool;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
 namespace Game.UI
 {
     //starting the menu manager and updating it
     public partial class MenuManager
     {
+<<<<<<< HEAD
         [SerializeField]
         private Text m_TextPlayerCount;
 
         [SerializeField]
         private string m_Level;
 
+=======
+>>>>>>> parent of d65226e... Worked on it for today
         private void Start()
         {
             m_animator = GetComponent<Animator>();
@@ -39,7 +41,7 @@ namespace Game.UI
         }
     }
 
-    //setting Settings
+    //setting variables
     public partial class MenuManager : MonoBehaviour {
 
         private int m_FishSpawningLimit;
@@ -68,6 +70,7 @@ namespace Game.UI
 
     }
 
+<<<<<<< HEAD
     //starting the game
     public partial class MenuManager
     {
@@ -129,6 +132,8 @@ namespace Game.UI
         }
     }
 
+=======
+>>>>>>> parent of d65226e... Worked on it for today
     //animating the menu
     public partial class MenuManager
     {

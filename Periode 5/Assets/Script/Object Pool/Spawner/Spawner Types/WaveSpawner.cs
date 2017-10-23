@@ -38,12 +38,14 @@ namespace Plugins.ObjectPool.Spawners
                     Debug.Log(M_Spawners[i].m_Obj.m_Prefab);
                     if (UnityEngine.Random.Range(0, 100) < M_Spawners[i].m_Obj.m_SpawnProcentage)
                     {
+                        Debug.Log("TEST");
                         SpawnItem spawnItem = new SpawnItem()
                         {
                             M_prefab = M_Spawners[i].m_Obj.m_Prefab,
                             m_Pool = M_Spawners[i].m_Pool,
                             M_SpawnPosition = M_SpawnPosition[0]
                         };
+                        Debug.Log("TEST1");
                         M_Wave.Add(spawnItem);
                         
                     }

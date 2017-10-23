@@ -36,8 +36,8 @@ namespace Game.UI
         {
             m_ScoreSystem = ScoreSystem;
             m_ScoreGoal = ScoreGoal;
-            m_CurrentscorefieldText = m_ScoreField;
-            //m_ScoreGoalText.text = "Fish Goal " + ScoreGoal; 
+            m_ScoreGoalText = m_ScoreField;
+            m_ScoreGoalText.text = "Fish Goal " + ScoreGoal;
 
         }
 
@@ -60,9 +60,9 @@ namespace Game.UI
                 }
 
                 //updating the textfields
-                m_CurrentscorefieldText.text = m_ScoreSystem.GetScore().Score.ToString(); ;
-                m_CurrentScoreSlider.value = m_ScoreSystem.GetScore().Score / m_ScoreGoal; 
-            } 
+                m_CurrentscorefieldText.text = m_ScoreSystem.GetScore().Score + " / " + m_ScoreGoal;
+                m_CurrentScoreSlider.value = m_ScoreSystem.GetScore().Score / m_ScoreGoal;
+            }
         }
 
         //called when this objects in being placed back into a pool
