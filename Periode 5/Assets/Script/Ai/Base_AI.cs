@@ -11,10 +11,13 @@ namespace Game.Character.Ai
 
         private float m_UpdateTimer;
 
+        protected float m_speed;
+
         protected virtual void Awake()
         {
             m_Agent = GetComponent<NavMeshAgent>();
             m_UpdateTimer = (float)Random.Range(0, 100) / 100;
+            m_speed = m_Agent.speed;
         }
 
         protected virtual void FixedUpdate()
